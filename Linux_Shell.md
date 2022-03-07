@@ -189,3 +189,20 @@ bc <<< "${BASES} / ${GENOME}"
 
 
 
+# 用Rscript给R脚本传递参数
+
+```bash
+Rscript <file>.r 1 2
+```
+
+将1和2传递给.r脚本，利用args传递
+
+而在.r脚本中，需要的命令是
+
+```R
+args <- commandArgs(T)
+# 收集参数给args变量，args[1] = 1, args[2] = 2
+```
+
+这样就可以根据不同的参数执行不同的命令
+
