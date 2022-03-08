@@ -206,3 +206,29 @@ args <- commandArgs(T)
 
 这样就可以根据不同的参数执行不同的命令
 
+也可以在R的脚本中加入下列命令，optparse可以做到类似Perl或Python的数据传入方式，这样就可以用变量来代替args
+
+```R
+library("optparse")
+
+option_list = list(
+    make_option(c("-f","--file"), type = "character", default = NULL,
+    help = "tsv file name", metavar = "character"),
+    make_option(c("-o","--out"), type = "character", default = "output.pdf",
+    help = "output pdf script in category name [default = %default]", metavar = "character"),
+    make_option(c("-a","--outall"), type = "character", default = "outputall.pdf",
+    help = "output pdf script name [default = %default]", metavar = "cahracter"),
+    make_option(c("-t","--title"), type = "character", default = NULL,
+    help = "output script RNA for maintitle", metavar = "character")
+);
+
+opt_parser = OptionParser(option_list=option_list);
+opt = parse_args(opt_parser);
+
+# opt$file, opt$out... variable could be used in the command
+```
+
+```bash
+Rscript <file.r> [options -f <file> -o <output> ...]
+```
+
