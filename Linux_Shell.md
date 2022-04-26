@@ -35,9 +35,24 @@ ai
 
 
 
-#  文件描述符及重定向
+## 变量命名的注意事项
 
-##  文件描述符
+在对变量进行命名的时候，要注意在shell脚本中，变量需要以字母进行开头，而不允许数字开头的形式
+
+```bash
+$ 1mis=1
+1mis=1: command not found
+
+$ mis1=1
+$ echo $mis1
+1
+```
+
+
+
+## 文件描述符及重定向
+
+### 文件描述符
 
 Linux系统预留了三个文件描述符，意义分别是：
 
@@ -69,7 +84,7 @@ ls: 无法访问2.txt: 没有那个文件或目录
 
 上面的在屏幕上输出的结果就是stderr
 
-##  重定向
+### 重定向
 
 两个重定向的符号分别为 > 和 >>，分别是直接覆盖写入，另一个是在原文件的后面追加输入
 
@@ -93,7 +108,7 @@ cat stderr.txt
 
 2>&1 表示2的输出重定向等同于1，即将标准输出和标准错误到同一个地方
 
-##  Linux特殊文件
+### Linux特殊文件
 
 /dev/null是一个特殊的设备文件，这个文件接收到任何数据都会被丢掉。因此，null这个设备通常被称为位桶(bit bucket)或黑洞
 
@@ -103,13 +118,39 @@ cat stderr.txt
 
 
 
-#  Compress or decompress file using gz
+## Shell中相关文件的压缩及解压
+
+处理压缩文件时会碰到`.gz`和`.tar.gz`
+
+tar指的是打包，如果仅仅是打包，`<file> --> <file>.tar`
+
+打包后再压缩，则为`<file>/<file>.tar --> <file>.gz/<file>.tar.gz`
+
+`.gz` file（不涉及打包）:
 
 ```bash
 # Compress file
 gzip filename
 # Decompress file
 gzip -d filename.gz
+```
+
+`.tar.gz` file（涉及打包）:
+
+```bash
+# Compress file
+tar -cvzf <file>.tar.gz source_file
+# source_file: 源文件
+
+# Decompress file
+tar -xzvf <file>.tar.gz [-C path]
+
+# -c, --create: 创建归档文件，即打包
+# -x, --extract: 解压
+# -z, --gzip, --gunzip, --ungzip: 通过gzip来归档后压缩
+# -v, --verbose: 可视化，在stdout中显示处理过程
+# -f, --file: 被操作的文件名
+# -C, --directory=DIR: 指定解压路径，无该参数时解压至当前路径
 ```
 
 
