@@ -8,79 +8,40 @@
 
 默认情况下：这些程序会读取标准入，写入标准出，并将错误传入标准误。这类程序通常叫过滤器（filter）。
 
-### 文件描述符
-
-Linux系统预留了三个文件描述符，意义分别是：
-
-0-标准输入 (stdin)
-
-1-标准输出 (stdout)
-
-2-标准错误 (stderr)
-
-假设在一个没有文件的路径之下，有且只有一个文件名称为1.txt，此时如果运行如下ls 1.txt这个命令，屏幕上会出现如下显示：
-
-1.txt
-
-这就是stdout的内容，标准输出至屏幕上
-
-```bash
-ls 1.txt
-#1.txt
-```
-
-结果屏幕上会输出这个1.txt，这个就是标准输出的结果
-
-```bash
-ls 2.txt
-#ls: cannot access '2.txt': No such file or directory
-```
-
-此时屏幕上会出现如下显示：
-
-ls: 无法访问2.txt: 没有那个文件或目录
-
-上面的在屏幕上输出的结果就是stderr
-
-### 重定向
-
-#### 重定向输出`>`
+### 重定向输出`>`
 
 - 以`>`改变标准输出
 
 对于上面的举例，如果我们进行重定向会出现如下的情况
 
 ```bash
-ls 1.txt 1>stdout.txt
-cat stdout.txt
-#1.txt
+echo "1" > test.txt
+
+cat test.txt
+#1
 ```
 
-此时对stdout.txt进行cat读取后，屏幕上会出现"1.txt"，即将标准输出的结果1.txt重定向记录到了stdout.txt里面
-
-```bash
-ls 2.txt 2>stderr.txt
-cat stderr.txt
-```
-
-此时读取后，屏幕上会显示"ls: 无法访问2.txt: 没有那个文件或目录"，即将标准错误的结果重定向记录到了stderr.txt
-
-`>`会直接覆盖写入重定向的文件
+`>`会直接覆盖写入重定向的文件，如果没有文件，则会创建一个新文件并输入。
 
 - 以`>>`改变标准输出
 
 与`>`的区别在于在原文件的后面追加输入，如果没有文件，则会创建一个新文件并追加输入。
 
-比如继续用上面的例子:
+比如**继续用上面的例子**:
 
 ```bash
-ls 1.txt 1>>stdout.txt
-cat stdout.txt
-#1.txt
-#1.txt
+echo "2" >> test.txt
+
+cat test.txt
+#1
+#2
+
+echo "3" > test.txt
+#3
+# overwrite again
 ```
 
-#### 重定向输入`<`
+### 重定向输入`<`
 
 - 以`<`改变标准输入
 
@@ -93,7 +54,8 @@ program < file
 可以将program的标准输入修改为由file传入:
 
 ```bash
-tr -d '\r' < dos-file.txt
+tr -d '\n' < dos-file.txt
+# delete all newline character '\n' in dos-file.txt
 ```
 
 比如此时如果我们使用一个命令
@@ -117,7 +79,7 @@ cat < test.txt
 
 但有时如果一个命令只能通过文件来接受而非标准入（即管道符此时不能完成重定向），则可以用这种重定向来将另一个命令的输入伪装成文件。
 
-如：
+如[faops](https://github.com/wang-q/faops)中使用到的例子：
 
 ```bash
 faops order test/ufasta.fa \
@@ -125,7 +87,9 @@ faops order test/ufasta.fa \
     out.fa
 ```
 
-- `<<` 带命令作用全文匹配某个字符串后结束
+由于`faops`需要从标准输入接受文件，所以可以利用`<`将后面命令运行的结果伪装成一个文件传入前一个命令。
+
+- `<<` 将开始tag和结束tag之间的内容作为输入
 
 比如如果我们此时在命令行中输入如下的内容：
 
@@ -147,7 +111,7 @@ eof
 cat > test.txt << eof
 ...
 eof
-# then all things will be redirected to test.txt, but not to stdout ($1)
+# then all things will be redirected to test.txt, but not to stdout
 ```
 
 - `<<<` 将后面的双引号内的内容传递给前面的命令
@@ -156,17 +120,18 @@ eof
 
 ```bash
 grep 'aa' <<< "ccccaa"
-#ccccaa ([aa] in red format)
+#ccccaa ([aa] is red on my screen in Ubuntu)
 sed 's/g/dddd/' <<< "ghhhg"
 #ddddhhhg
 sed 's/g$/dddd/' <<< "ghhhg"
 #ghhhdddd
-bc <<< "${BASES} / ${GENOME}"
 bc <<< "3+6"
 #9
+bc <<< "${BASES} / ${GENOME}"
+# this command actually calculate the result of ${BASES} divided by ${GENOME} 
 ```
 
-#### 重定向`&`
+### 其他重定向
 
 - `&`
 
@@ -179,7 +144,7 @@ bc <<< "3+6"
 `|`管道（pipeline）符号也是一个重要的重定向符号，会将上个程序的标准出变成下个程序的标准入。
 
 ```bash
-tr \d '\r' < file1.txt | sort > file2.txt
+tr -d '\n' < file1.txt | sort > file2.txt
 ```
 
 先删除`file1.txt`的回车符，在完成数据的排序后，将结果输出到`file2.txt`。
@@ -190,9 +155,94 @@ tr \d '\r' < file1.txt | sort > file2.txt
 
 因此：
 
-2>/dev/null的意思就是将标准错误stderr删掉
+`2>/dev/null`的意思就是将标准错误stderr删掉
 
-## 访问Shell脚本的参数
+## 文件描述符与特殊变量
+
+### 文件描述符
+
+Linux系统预留了三个文件描述符，意义分别是：
+
+0-标准输入 (stdin)
+
+1-标准输出 (stdout)
+
+2-标准错误 (stderr)
+
+假设在一个没有文件的路径之下，有且只有一个文件名称为`1.txt`，此时如果运行如下`ls 1.txt`这个命令
+
+```bash
+ls 1.txt
+#1.txt
+```
+
+此命令的结果会在屏幕上出现`1.txt`。这就是stdout的内容，并显示至屏幕上。
+
+```bash
+ls 2.txt
+#ls: cannot access '2.txt': No such file or directory
+```
+
+由于上面的命令没有成功运行，在屏幕上输出的结果`ls: cannot access '2.txt': No such file or directory`就是stderr，并显示至屏幕上。
+
+当以`>`改变标准输出时:
+
+```bash
+ls 1.txt 1>stdout.txt
+cat stdout.txt
+#1.txt
+```
+
+此时对stdout.txt进行cat读取后，屏幕上会出现"1.txt"，即将标准输出的结果1.txt重定向记录到了stdout.txt里面。
+
+`1`就代表文件描述符stdout，其效果等同于`ls 1.txt > stdout.txt`
+
+```bash
+ls 2.txt 2>stderr.txt
+cat stderr.txt
+#ls: cannot access '2.txt': No such file or directory
+```
+
+此时读取后，屏幕上会显示"ls: 无法访问2.txt: 没有那个文件或目录"，即将标准错误的结果重定向记录到了stderr.txt。
+
+这些就是文件描述符的作用。
+
+当以`>>`改变标准输出时，与上述例子同样的：
+
+```bash
+ls 1.txt 1>>stdout.txt
+cat stdout.txt
+#1.txt
+#1.txt
+```
+
+上面是预留的文件描述符的作用。
+
+### Shell中的特殊变量
+
+主要的特殊变量包括：`$#`, `$@`, `$0`, `$1`, `$2`等。（其他特殊变量遇到时再进行更新）
+
+变量说明：
+
+`$$`: Shell本身的PID (ProcessID)
+
+`$!`: Shell最后运行的后台Process的PID
+
+`$?`: 最后运行的命令的返回值
+
+`$-`: 使用Set命令设定的Flag一览
+
+`$*`: 所有参数列表。如果是`"$*"`的情况，以"$1 $2 ... $n"的形式输出所有参数
+
+`$@`: 所有参数列表。如果是`"$@"`的情况，以"$1" "$2" ... "$n"的形式输出所有参数
+
+`$#`: 添加到Shell的参数个数
+
+`$0`: Shell本身的文件名
+
+`$1 - $n`: 添加到Shell的各个参数值。`$1`是第1个参数、`$2`是第二个参数...
+
+### 访问Shell脚本的参数
 
 所谓的位置参数（positional parameters）指的是Shell脚本的命令行参数（command-line arguments）。在Shell函数中，它们同时也可以是函数的参数。基于历史的原因，当它超过9，就应该用大括号把数字框起来：
 
