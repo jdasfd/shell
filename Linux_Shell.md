@@ -419,3 +419,29 @@ no
 `-O`: 写入到文件，文件名和远程文件一样
 
 ### datamash
+
+### screen
+
+`screen`可以通过创建一个隔离的全屏窗口管理器，相当于一个虚拟终端。SSH远程登录工作站后，如果遇到断网断电等特殊情况导致链接断开，正在执行的的任务会挂掉，这一点用`nohup`也不能解决，且`nohup`也没有可视化的视界。因此创建`screen`的好处就是能够将工作提交到工作站的虚拟终端中，并且可以创建多个。
+
+```bash
+# create a new terminal
+screen -S <terminal>
+ctrl+a c
+
+# detached from the terminal
+ctrl+a d
+
+# kill the terminal
+exit
+ctrl+a k
+
+# list all terminals
+screen -ls
+
+# goto the terminal
+screen -r <terminal>
+
+# show terminal list
+ctrl+a w
+```
