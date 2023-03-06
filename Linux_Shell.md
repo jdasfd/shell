@@ -445,3 +445,28 @@ screen -r <terminal>
 # show terminal list
 ctrl+a w
 ```
+
+### tac
+
+反向cat（从最后一行向第一行输出）
+
+```bash
+cat a.txt
+#nihao
+#nihaooo
+#hello
+
+tac a.txt
+#hello
+#nihaooo
+#nihao
+```
+
+### date
+
+系统时间输出
+
+```bash
+time1=$(date "+%Y-%m-%d %H:%M:%S")
+echo $time1
+```
