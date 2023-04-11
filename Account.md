@@ -156,19 +156,6 @@ nextDenovo -h
 minimap2-nd -h
 ```
 
-- NextPolish
-
-May influenced by the problem [Resolve /usr/bin/env: ‘python’](#resolve-usrbinenv--python).
-
-```bash
-cd ~/biosoft
-wget https://github.com/Nextomics/NextPolish/releases/download/v1.4.1/NextPolish.tgz
-
-tar -xzvf NextPolish.tgz && cd NextPolish
-make
-
-```
-
 - MEGAHIT (v.1.2.9)
 
 May influenced by the problem [Resolve /usr/bin/env: ‘python’](#resolve-usrbinenv--python).
@@ -187,6 +174,92 @@ echo >> ~/.bashrc
 source ~/.bashrc
 
 megahit -h
+```
+
+- SNAP
+
+```bash
+cd ~/biosoft
+git clone https://github.com/KorfLab/SNAP.git
+
+cd SNAP && make
+
+# add path
+echo "# SNAP" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/SNAP:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+snap -help
+```
+
+- ParaAT (v.2.0)
+
+```bash
+cd ~/biosoft
+git clone https://github.com/wonaya/ParaAT.git
+
+# add path
+echo "# ParaAT" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/ParaAT:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+ParaAT.pl -help
+```
+
+- RepeatMasker (v.4.1.5) & RepeatModeler
+
+```bash
+cd ~/biosoft
+# RMBlast dep
+wget https://www.repeatmasker.org/rmblast/rmblast-2.13.0+-x64-linux.tar.gz
+tar -xzvf rmblast-2.13.0+-x64-linux.tar.gz
+
+# add path
+echo "# rmblast" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/rmblast-2.13.0/bin:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+megahit -h
+```
+
+
+### Conda env
+
+- Anaconda
+
+Conda could be installed via unrooted settings.
+
+```bash
+cd ~/biosoft
+wget https://repo.anaconda.com/archive/Anaconda3-2023.03-Linux-x86_64.sh
+
+bash Anaconda3-2023.03-Linux-x86_64.sh
+conda config --set auto_activate_base false
+```
+
+- EDTA
+
+```bash
+cd ~/biosoft
+git clone https://github.com/oushujun/EDTA.git
+
+conda env create -f EDTA/EDTA.yml -n tools
+
+conda activate tools
+EDTA.pl --help
+```
+
+- OrthoFinder
+
+```bash
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+
+conda install -n tools orthofinder
 ```
 
 ```
