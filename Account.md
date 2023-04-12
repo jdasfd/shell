@@ -270,19 +270,18 @@ bash Anaconda3-2023.03-Linux-x86_64.sh
 conda config --set auto_activate_base false
 ```
 
-- EDTA
+- EDTA (env: tools)
 
 ```bash
 cd ~/biosoft
 git clone https://github.com/oushujun/EDTA.git
 
 conda env create -f EDTA/EDTA.yml -n tools
-
-conda activate tools
-EDTA.pl --help
+# conda activate tools
+# EDTA.pl --help
 ```
 
-- OrthoFinder
+- OrthoFinder (env: tools)
 
 ```bash
 conda config --add channels defaults
@@ -290,8 +289,17 @@ conda config --add channels bioconda
 conda config --add channels conda-forge
 
 conda install -n tools orthofinder
+# conda activate tools
+# orthofinder -h
 ```
 
+- Busco (env: busco)
+
+```bash
+conda create --name busco
+conda install -n busco busco=5.4.6
+# conda activate busco
+# busco -h
 ```
 
 ## References
