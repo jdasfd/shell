@@ -208,7 +208,7 @@ source ~/.bashrc
 ParaAT.pl -help
 ```
 
-- RepeatMasker (v.4.1.5) & RepeatModeler
+- RepeatMasker (v.4.1.5)
 
 ```bash
 cd ~/biosoft
@@ -222,7 +222,37 @@ echo 'export PATH=/home/wzy01/biosoft/rmblast-2.13.0/bin:$PATH' >> ~/.bashrc
 echo >> ~/.bashrc
 source ~/.bashrc
 
-megahit -h
+# trf dep
+git clone https://github.com/Benson-Genomics-Lab/TRF.git
+cd TRF
+mkdir build
+cd build
+../configure
+make
+
+echo "# trf" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/TRF/build/src:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+wget http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.5.tar.gz
+tar -xzvf RepeatMasker-4.1.5.tar.gz
+cd RepeatMasker
+perl ./configure
+# input following codes:
+#/home/wzy01/biosoft/TRF/build/src/trf
+#/home/wzy01/biosoft/rmblast-2.13.0/bin
+
+echo "# RepeatMasker" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/RepeatMasker:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+# default search engine is rmblast
+# please modified to your own search engine
+RepeatMasker -h
+```
+
 ```
 
 
