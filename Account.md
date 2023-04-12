@@ -12,8 +12,27 @@ sudo useradd -m -s /bin/bash wzy01
 # -s: use /bin/bash as the default shell
 
 # set new passwd
-sudo passwd wzy01
+sudo passwd <your_settings>
 # type 2 times
+```
+
+## Some basic softwares via apt
+
+`sudo apt install` could install packages globally, so some basic softwares could be installed directly.
+
+```bash
+# using rooted env
+sudo apt install diamond-aligner
+sudo apt install bamtools
+sudo apt install cdbfasta
+sudo apt install spaln
+sudo apt install hisat2
+sudo apt install bedtools
+sudo apt install stringtie
+sudo apt install gffread
+
+# RepeatModeler dep
+sudo cpan -i JSON File::Which Devel::Size
 ```
 
 ## Software management
@@ -78,7 +97,7 @@ In some cases, a problem may show up like `/usr/bin/env: ‘python’: No such f
 sudo ln -s /home/wzy01/.python3.7.16/bin/python3 /usr/bin/python
 ```
 
-### Other useful tools download globally
+### Other useful tools
 
 - Minimap2
 
@@ -252,6 +271,14 @@ source ~/.bashrc
 # please modified to your own search engine
 RepeatMasker -h
 ```
+
+- RepeatModeler
+
+```bash
+# use sudo
+cpanm JSON Devel::Size File::Which
+
+git clone https://github.com/Dfam-consortium/RepeatModeler.git
 
 ```
 
