@@ -35,7 +35,7 @@ sudo apt install gffread
 sudo cpan -i JSON File::Which Devel::Size
 ```
 
-## Software management
+## Software background
 
 ### Python
 
@@ -88,6 +88,26 @@ echo >> ~/.bashrc
 source ~/.bashrc
 ```
 
+- Python-2.7
+
+```bash
+cd ~/biosoft
+wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
+tar -xvzf Python-2.7.18.tgz
+
+cd Python-2.7.18
+mkdir -p /home/wzy01/.python2.7.18/
+./configure --prefix="/home/wzy01/.python2.7.18/"
+make
+make install
+
+# add path
+echo "# local python2" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/.python2.7.18/bin:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+```
+
 ### Resolve /usr/bin/env: ‘python’
 
 In some cases, a problem may show up like `/usr/bin/env: ‘python’: No such file or directory` under a rooted account or `/usr/bin/env: ‘python’: Permision denied` under an unrooted account. The reason now I guess is the python2 and python3 problem. In Ubuntu, `python` is referred to python2 and `python3` is referred to python3 as far as I know. There are usually some software supporting python2 and python3. It is the goal that you let the software know that `python` is python3 but not python2. A simple way to solve this problem is `sudo apt install python-is-python3`. In the case of building env for an unrooted account, I decide to use `sudo ln -s` to use the user's python3.
@@ -97,7 +117,25 @@ In some cases, a problem may show up like `/usr/bin/env: ‘python’: No such f
 sudo ln -s /home/wzy01/.python3.7.16/bin/python3 /usr/bin/python
 ```
 
-### Other useful tools
+### node.js
+
+```bash
+cd ~/biosoft
+wget https://nodejs.org/dist/v19.9.0/node-v19.9.0-linux-x64.tar.gz
+tar -xzvf node-v19.9.0-linux-x64.tar.gz
+
+# add path
+echo "# local nodejs" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/node-v19.9.0-linux-x64/bin:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+npm -v
+```
+
+## Software management
+
+### Manual installation
 
 - Minimap2
 
@@ -254,6 +292,7 @@ echo 'export PATH=/home/wzy01/biosoft/TRF/build/src:$PATH' >> ~/.bashrc
 echo >> ~/.bashrc
 source ~/.bashrc
 
+cd ~/biosoft
 wget http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.5.tar.gz
 tar -xzvf RepeatMasker-4.1.5.tar.gz
 cd RepeatMasker
@@ -272,16 +311,119 @@ source ~/.bashrc
 RepeatMasker -h
 ```
 
-- RepeatModeler
+- RepeatModeler (v.2.0.4)
+
+Run `sudo apt-get install genometools libgenometools0 libgenometools0-dev` under the rooted account.
 
 ```bash
-# use sudo
-cpanm JSON Devel::Size File::Which
+cd ~/biosoft
+# RECON dep
+wget http://www.repeatmasker.org/RepeatModeler/RECON-1.08.tar.gz
+tar -xzvf RECON-1.08.tar.gz && cd RECON-1.08/src
+make
+make install
 
+echo "# RECON" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/RECON-1.08/bin:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+# RepeatScout dep
+cd ~/biosoft
+wget http://www.repeatmasker.org/RepeatScout-1.0.6.tar.gz
+tar -xzvf RepeatScout-1.0.6.tar.gz && cd RepeatScout-1.0.6
+make
+
+echo "# RepeatScout" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/RepeatScout-1.0.6:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+# UCSC tools dep
+mkdir -p ~/biosoft/UCSC
+cd ~/biosoft/UCSC
+rsync -aP hgdownload.soe.ucsc.edu::genome/admin/exe/linux.x86_64/ ./
+
+echo "# UCSC" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/UCSC:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+# GenomTools
+cd ~/biosoft
+wget http://genometools.org/pub/genometools-1.5.9.tar.gz
+tar -xzvf genometools-1.5.9.tar.gz && cd genometools-1.5.9
+make threads=yes
+
+# RepeatModeler
+cd ~/biosoft
 git clone https://github.com/Dfam-consortium/RepeatModeler.git
+cd RepeatModeler
+perl ./configure
+# press enter and copy the path into it
 
+#LTR Structural Identication Pipeline [optional] has not been installed
+
+echo "# RepeatModeler" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/RepeatModeler:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+RepeatModeler -help
 ```
 
+- 3DDNA
+
+```bash
+cd ~/biosoft
+git clone http://github.com/petepolack/3ddna
+cd 3ddna
+npm install
+node app.js
+```
+
+- MitoFinder (v.1.4.1)
+
+```bash
+cd ~/biosoft
+wget https://github.com/RemiAllio/MitoFinder/archive/master.zip
+unzip master.zip
+mv MitoFinder-master MitoFinder
+cd MitoFinder
+./install.sh
+vim mitofinder
+# change the first line to #!/usr/bin/python2
+# only support python2
+
+# arwen
+cd arwen
+gcc arwen1.2.3.c
+mv a.out arwen
+
+./arwen -h
+
+echo "# MitoFinder" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/MitoFinder:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+mitofinder -h
+```
+
+- sspace
+
+```bash
+cd ~/biosoft
+git clone https://github.com/nsoranzo/sspace_basic.git
+
+echo "# sspace" >> ~/.bashrc
+echo 'export PATH=/home/wzy01/biosoft/sspace_basic:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+#SSPACE_Basic_v2.0.pl
+#SSPACE_Basic.pl
+```
 
 ### Conda env
 
@@ -318,6 +460,12 @@ conda config --add channels conda-forge
 conda install -n tools orthofinder
 # conda activate tools
 # orthofinder -h
+```
+
+- GetOrganelle (env: tools)
+
+```bash
+conda install -n tools getorganelle
 ```
 
 - Busco (env: busco)
