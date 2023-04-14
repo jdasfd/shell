@@ -12,7 +12,7 @@ sudo useradd -m -s /bin/bash wzy01
 # -s: use /bin/bash as the default shell
 
 # set new passwd
-sudo passwd <your_settings>
+sudo passwd wzy01
 # type 2 times
 ```
 
