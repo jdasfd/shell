@@ -64,5 +64,5 @@ source $HOME/.bashrc
 ```bash
 bash ~/Scripts/shell/perl/install.sh
 bash ~/Scripts/dotfiles/python/install.sh
-bash ~/Scripts/dotfiles/
+bash ~/Scripts/shell/r/install.sh
 ```

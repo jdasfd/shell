@@ -15,4 +15,5 @@ for OP in dotfiles withncbi; do
     fi
 done
 
+# my own shell repo
 git clone https://github.com/jdasfd/shell.git "$HOME/Scripts/shell"
