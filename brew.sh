@@ -31,7 +31,7 @@ if grep -q -i PERL_536_PATH $HOME/.bashrc; then
 else
     echo "==> Updating .bashrc with PERL_536_PATH..."
     PERL_536_BREW=$(brew --prefix)/Cellar/$(brew list --versions perl | sed 's/ /\//' | head -n 1)
-    PERL_536_PATH="export PATH=\"$PERL_534_BREW/bin:\$PATH\""
+    PERL_536_PATH="export PATH=\"$PERL_536_BREW/bin:\$PATH\""
     echo '# PERL_536_PATH' >> $HOME/.bashrc
     echo $PERL_536_PATH    >> $HOME/.bashrc
     echo >> $HOME/.bashrc
