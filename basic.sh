@@ -29,4 +29,7 @@ sudo apt-get -y install aptitude net-tools parallel vim screen xsltproc numactl
 echo "==> Install develop libraries"
 sudo apt-get -y install libdb-dev libxml2-dev libssl-dev libncurses5-dev libgd-dev
 
+echo "==> Install R related libraries"
+sudo apt-get -y install libharfbuzz-dev libfribidi-dev
+
 echo "====> Basic software installation complete! <===="

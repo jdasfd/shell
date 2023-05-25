@@ -65,4 +65,12 @@ source $HOME/.bashrc
 bash ~/Scripts/shell/perl/install.sh
 bash ~/Scripts/dotfiles/python/install.sh
 bash ~/Scripts/shell/r/install.sh
+bash ~/Scripts/dotfiles/rust/install.sh
+source ~/.bashrc
+```
+
+## Symlink
+
+```bash
+ln -s /mnt/d/data/ ~/data
 ```
