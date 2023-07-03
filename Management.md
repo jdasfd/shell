@@ -128,6 +128,25 @@ echo 'export CUBLAS_WORKSPACE_CONFIG=":4096:8"' >> ~/.bashrc
 echo 'export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:32' >> ~/.bashrc
 ```
 
+- HMMER
+
+```bash
+cd ~/share
+wget http://eddylab.org/software/hmmer/hmmer-3.3.2.tar.gz
+tar -xzvf hmmer-3.3.2.tar.gz
+cd hmmer-3.3.2/
+./configure --prefix ~/.hmmer
+make
+make check
+make install
+
+# hmmer setting
+echo "# HMMER_332" >> ~/.bashrc
+echo 'export PATH=~/.hmmer/bin:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+```
+
 ## Reference:
 
 - [Unrooted users install Python and related libs](https://blog.csdn.net/JohinieLi/article/details/103710021)
