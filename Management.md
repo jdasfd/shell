@@ -24,6 +24,8 @@ sudo apt install aria2
 
 ## Manage packages under unrooted linux account
 
+### Basic software
+
 - tsv-utils
 
 ```bash
@@ -56,33 +58,6 @@ source ~/.bashrc
 faops
 ```
 
-- Cellranger
-
-Download cellranger via `wget` or `curl` to my software dir `~/share`. The download link could be found on the website [10xgenomics](https://support.10xgenomics.com/single-cell-gene-expression/software/overview/welcome).
-
-```bash
-cd ~/share/
-# cellranger
-wget -O cellranger-7.1.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.1.0.tar.gz?Expires=1680805080&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjEuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODA4MDUwODB9fX1dfQ__&Signature=i6cFr79khQt8vYd-lOuN6YiHDMt5~qvtN0DGaSlzZ7lf676CYdL-~msHdxFp1sNQESSGY1GvRF5hBNUzt7OcmNDqz4mDTiPDRrHj3-nkcDmS1YnWqaxXTS7M95pjdRjqt8udJjALr3YKHeZN8uJU6TNf1IIsm7Jgqr5eSM7dJGlFnwPLAz9rzFADKOaeDTG5a-CuEq8-7GL4cbjyNzshvFOThmAUnYFbKQfjennorucsdYD1B2AlJEiEtEykaKUeQ4DhVZZose51R6qMkFj4iCFgMjdB4EgcRyvNkmIQ6j4kZZsEJl6CF8hROOYckalVk1EKlod9LQTHf3fCD3Zlkg__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA"
-# cellranger-atac
-wget -O cellranger-atac-2.1.0.tar.gz "https://cf.10xgenomics.com/releases/cell-atac/cellranger-atac-2.1.0.tar.gz?Expires=1680813186&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1hdGFjL2NlbGxyYW5nZXItYXRhYy0yLjEuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODA4MTMxODZ9fX1dfQ__&Signature=dHBrc-5MMWr-6hTLwDIgorZIupXByEcbI6jjA8hQTsd1aWOfgHGUKXGKsukjmw2zp8ehD2yxduUmpuMyIymctkIEuavk6jYSHS6mekyi8S0hKfE9qk8Zya-VP8gIyqVy5LaFgtFdt164-yVBKjA9kLVdBJ5qghs2WNOhJqQ2es~iH8rdb5L2OSjdv0hHTIuypMQobOKSt27kKfOPtbV-f~~g1d1MxrgBJJXu7JDS-QwLwqbU3eDUPz2IE5XqmsFYEkxAlOlYszdv-kIGxc37AvwBavMJfMzJqIlcVvi53N4szZGqqQ4V4f-p8q0oh2RYJA-fe3sOFK6fBYI0gFeeeQ__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA"
-
-# tar them
-tar -xzvf cellranger-7.1.0.tar.gz
-tar -xzvf cellranger-atac-2.1.0.tar.gz
-
-# add path to .bashrc
-echo "# Single cell" >> ~/.bashrc
-echo 'export PATH=~/share/cellranger-7.1.0:$PATH' >> ~/.bashrc
-echo 'export PATH=~/share/cellranger-atac-2.1.0:$PATH' >> ~/.bashrc
-echo >> ~/.bashrc
-source ~/.bashrc
-
-# test
-cellranger -h
-cellranger-atac -h
-```
-
 - Rust and cargo
 
 ```bash
@@ -96,21 +71,31 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 cargo install --git https://github.com/wang-q/anchr --branch main
 ```
 
-- STAR
+### Phylogeny and RLKs related
+
+- Ubuntu packages
+
+```bash
+sudo apt install mafft
+sudo apt install fasttree
+sudo apt install cd-hit
+sudo apt install iqtree
+```
+
+- trimAL (v1.4.rev22)
 
 ```bash
 cd ~/share
+git clone https://github.com/inab/trimal.git
 
-git clone https://github.com/alexdobin/STAR.git
-cd STAR/source
-make STAR
+cd trimal/source
+make
 
-echo "# STAR" >> ~/.bashrc
-echo 'export PATH=~/share/STAR/source:$PATH' >> ~/.bashrc
+#add path
+echo "# trimal" >> ~/.bashrc
+echo 'export PATH=$PATH:~/share/trimal/source' >> ~/.bashrc
 echo >> ~/.bashrc
 source ~/.bashrc
-
-STAR -h
 ```
 
 - tmbed
@@ -145,6 +130,52 @@ echo "# HMMER_332" >> ~/.bashrc
 echo 'export PATH=~/.hmmer/bin:$PATH' >> ~/.bashrc
 echo >> ~/.bashrc
 source ~/.bashrc
+```
+
+### Single-cell related
+
+- Cellranger
+
+Download cellranger via `wget` or `curl` to my software dir `~/share`. The download link could be found on the website [10xgenomics](https://support.10xgenomics.com/single-cell-gene-expression/software/overview/welcome).
+
+```bash
+cd ~/share/
+# cellranger
+wget -O cellranger-7.1.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.1.0.tar.gz?Expires=1680805080&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci03LjEuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODA4MDUwODB9fX1dfQ__&Signature=i6cFr79khQt8vYd-lOuN6YiHDMt5~qvtN0DGaSlzZ7lf676CYdL-~msHdxFp1sNQESSGY1GvRF5hBNUzt7OcmNDqz4mDTiPDRrHj3-nkcDmS1YnWqaxXTS7M95pjdRjqt8udJjALr3YKHeZN8uJU6TNf1IIsm7Jgqr5eSM7dJGlFnwPLAz9rzFADKOaeDTG5a-CuEq8-7GL4cbjyNzshvFOThmAUnYFbKQfjennorucsdYD1B2AlJEiEtEykaKUeQ4DhVZZose51R6qMkFj4iCFgMjdB4EgcRyvNkmIQ6j4kZZsEJl6CF8hROOYckalVk1EKlod9LQTHf3fCD3Zlkg__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA"
+# cellranger-atac
+wget -O cellranger-atac-2.1.0.tar.gz "https://cf.10xgenomics.com/releases/cell-atac/cellranger-atac-2.1.0.tar.gz?Expires=1680813186&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1hdGFjL2NlbGxyYW5nZXItYXRhYy0yLjEuMC50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODA4MTMxODZ9fX1dfQ__&Signature=dHBrc-5MMWr-6hTLwDIgorZIupXByEcbI6jjA8hQTsd1aWOfgHGUKXGKsukjmw2zp8ehD2yxduUmpuMyIymctkIEuavk6jYSHS6mekyi8S0hKfE9qk8Zya-VP8gIyqVy5LaFgtFdt164-yVBKjA9kLVdBJ5qghs2WNOhJqQ2es~iH8rdb5L2OSjdv0hHTIuypMQobOKSt27kKfOPtbV-f~~g1d1MxrgBJJXu7JDS-QwLwqbU3eDUPz2IE5XqmsFYEkxAlOlYszdv-kIGxc37AvwBavMJfMzJqIlcVvi53N4szZGqqQ4V4f-p8q0oh2RYJA-fe3sOFK6fBYI0gFeeeQ__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA"
+
+# tar them
+tar -xzvf cellranger-7.1.0.tar.gz
+tar -xzvf cellranger-atac-2.1.0.tar.gz
+
+# add path to .bashrc
+echo "# Single cell" >> ~/.bashrc
+echo 'export PATH=~/share/cellranger-7.1.0:$PATH' >> ~/.bashrc
+echo 'export PATH=~/share/cellranger-atac-2.1.0:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+# test
+cellranger -h
+cellranger-atac -h
+```
+
+- STAR
+
+```bash
+cd ~/share
+
+git clone https://github.com/alexdobin/STAR.git
+cd STAR/source
+make STAR
+
+echo "# STAR" >> ~/.bashrc
+echo 'export PATH=~/share/STAR/source:$PATH' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+STAR -h
 ```
 
 ## Reference:
