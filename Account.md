@@ -16,7 +16,7 @@ sudo passwd wzy01
 # type 2 times
 ```
 
-## Some basic softwares via apt
+## Some basic softwares via apt (Globally used)
 
 `sudo apt install` could install packages globally, so some basic softwares could be installed directly.
 
@@ -35,7 +35,7 @@ sudo apt install gffread
 sudo cpan -i JSON File::Which Devel::Size
 ```
 
-## Software background
+## Basic env built (Unrooted account)
 
 ### Python
 
@@ -113,7 +113,7 @@ source ~/.bashrc
 In some cases, a problem may show up like `/usr/bin/env: ‘python’: No such file or directory` under a rooted account or `/usr/bin/env: ‘python’: Permision denied` under an unrooted account. The reason now I guess is the python2 and python3 problem. In Ubuntu, `python` is referred to python2 and `python3` is referred to python3 as far as I know. There are usually some software supporting python2 and python3. It is the goal that you let the software know that `python` is python3 but not python2. A simple way to solve this problem is `sudo apt install python-is-python3`. In the case of building env for an unrooted account, I decide to use `sudo ln -s` to use the user's python3.
 
 ```bash
-# root your account
+# under root account
 sudo ln -s /home/wzy01/.python3.7.16/bin/python3 /usr/bin/python
 ```
 
@@ -133,7 +133,21 @@ source ~/.bashrc
 npm -v
 ```
 
-## Software management
+### Conda env
+
+- Anaconda
+
+Conda could be installed via unrooted settings.
+
+```bash
+cd ~/biosoft
+wget https://repo.anaconda.com/archive/Anaconda3-2023.03-Linux-x86_64.sh
+
+bash Anaconda3-2023.03-Linux-x86_64.sh
+conda config --set auto_activate_base false
+```
+
+## Software management (Unrooted account)
 
 ### Manual installation
 
@@ -423,20 +437,6 @@ source ~/.bashrc
 
 #SSPACE_Basic_v2.0.pl
 #SSPACE_Basic.pl
-```
-
-### Conda env
-
-- Anaconda
-
-Conda could be installed via unrooted settings.
-
-```bash
-cd ~/biosoft
-wget https://repo.anaconda.com/archive/Anaconda3-2023.03-Linux-x86_64.sh
-
-bash Anaconda3-2023.03-Linux-x86_64.sh
-conda config --set auto_activate_base false
 ```
 
 - EDTA (env: tools)

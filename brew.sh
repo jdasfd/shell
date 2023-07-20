@@ -107,6 +107,7 @@ brew install lua node
 
 # taps
 brew tap wang-q/tap
+brew tap brewsci/bio
 
 # downloading tools
 brew install aria2 curl wget
@@ -146,9 +147,3 @@ hash dot 2>/dev/null || {
 hash convert 2>/dev/null || {
     brew install imagemagick
 }
-
-# weird dependancies by Cairo.pm
-# brew install linuxbrew/xorg/libpthread-stubs linuxbrew/xorg/renderproto linuxbrew/xorg/kbproto linuxbrew/xorg/xextproto
-
-# gtk+3
-# brew install gsettings-desktop-schemas gtk+3 adwaita-icon-theme gobject-introspection
