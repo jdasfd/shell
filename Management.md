@@ -178,6 +178,16 @@ source ~/.bashrc
 STAR -h
 ```
 
+- AlphaFold2
+
+```bash
+cd ~/share
+git clone https://github.com/deepmind/alphafold.git
+cd ./alphafold
+
+scripts/download_all_data.sh ~/share/af_dataset > download.log 2> download_all.log &
+```
+
 ## Reference:
 
 - [Unrooted users install Python and related libs](https://blog.csdn.net/JohinieLi/article/details/103710021)
