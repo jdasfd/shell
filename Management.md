@@ -19,12 +19,33 @@ sudo cpan -i YAML::Syck Number::Format
 - Ubuntu packages
 
 ```bash
+# download
 sudo apt install aria2
+# RLK related
+sudo apt install mafft
+sudo apt install fasttree
+sudo apt install cd-hit
+sudo apt install iqtree
 ```
 
 ## Manage packages under unrooted linux account
 
-### Basic software
+### Anaconda
+
+Anaconda could be installed directly under unrooted linux account
+
+```bash
+cd ~
+wget https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh
+bash Anaconda3-2023.03-Linux-x86_64.sh
+# installed via 
+# restart
+
+# auto activate canceled
+conda config --set auto_activate_base false
+```
+
+### Basic installation (compile)
 
 - tsv-utils
 
@@ -72,15 +93,6 @@ cargo install --git https://github.com/wang-q/anchr --branch main
 ```
 
 ### Phylogeny and RLKs related
-
-- Ubuntu packages
-
-```bash
-sudo apt install mafft
-sudo apt install fasttree
-sudo apt install cd-hit
-sudo apt install iqtree
-```
 
 - trimAL (v1.4.rev22)
 
@@ -178,14 +190,29 @@ source ~/.bashrc
 STAR -h
 ```
 
+### Protein structure prediction
+
 - AlphaFold2
 
 ```bash
 cd ~/share
-git clone https://github.com/deepmind/alphafold.git
-cd ./alphafold
 
-scripts/download_all_data.sh ~/share/af_dataset > download.log 2> download_all.log &
+conda create -n alphafold python==3.8
+conda update -n base conda
+conda activate alphafold
+
+# install deps
+conda install -y -c conda-forge openmm==7.5.1 cudatoolkit==11.2.2 pdbfixer
+conda install -y -c bioconda hmmer hhsuite==3.3.0 kalign2
+# pip install via python3.8
+pip install absl-py==1.0.0 biopython==1.79 chex==0.0.7 dm-haiku==0.0.9 dm-tree==0.1.6 immutabledict==2.0.0 jax==0.3.25 ml-collections==0.1.0 numpy==1.21.6 pandas==1.3.4 protobuf==3.20.1 scipy==1.7.0 tensorflow-cpu==2.9.0
+pip install --upgrade --no-cache-dir jax==0.3.25 jaxlib==0.3.25+cuda11.cudnn805 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+
+wget https://github.com/google-deepmind/alphafold/archive/refs/tags/v2.3.2.tar.gz && tar -xzf v2.3.2.tar.gz && export alphafold_path="$(pwd)/alphafold-2.3.2"
+wget -q -P $alphafold_path/alphafold/common/ https://git.scicore.unibas.ch/schwede/openstructure/-/raw/7102c63615b64735c4941278d92b554ec94415f8/modules/mol/alg/src/stereo_chemical_props.txt
+
+# $alphafold_path variable is set to the alphafold git repo directory (absolute path)
+cd ~/anaconda3/envs/alphafold/lib/python3.8/site-packages/ && patch -p0 < $alphafold_path/docker/openmm.patch
 ```
 
 ## Reference:
