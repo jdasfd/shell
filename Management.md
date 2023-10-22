@@ -190,7 +190,7 @@ source ~/.bashrc
 STAR -h
 ```
 
-### Protein structure prediction
+### Protein structure related
 
 - AlphaFold2
 
@@ -213,6 +213,23 @@ wget -q -P $alphafold_path/alphafold/common/ https://git.scicore.unibas.ch/schwe
 
 # $alphafold_path variable is set to the alphafold git repo directory (absolute path)
 cd ~/anaconda3/envs/alphafold/lib/python3.8/site-packages/ && patch -p0 < $alphafold_path/docker/openmm.patch
+```
+
+- US-align (version 20230609)
+
+```bash
+cd ~/share
+
+git clone https://github.com/pylelab/USalign.git
+cd USalign/
+make
+
+echo "# USalign" >> ~/.bashrc
+echo 'export PATH=$PATH:~/share/USalign' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+USalign -h
 ```
 
 ## Reference:
