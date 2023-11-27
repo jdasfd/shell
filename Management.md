@@ -123,6 +123,9 @@ tmbed --help
 echo "# cuda env" >> ~/.bashrc
 echo 'export CUBLAS_WORKSPACE_CONFIG=":4096:8"' >> ~/.bashrc
 echo 'export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:32' >> ~/.bashrc
+source ~/.bashrc
+
+tmbed --help
 ```
 
 - HMMER
@@ -142,6 +145,8 @@ echo "# HMMER_332" >> ~/.bashrc
 echo 'export PATH=~/.hmmer/bin:$PATH' >> ~/.bashrc
 echo >> ~/.bashrc
 source ~/.bashrc
+
+hmmscan -h
 ```
 
 ### Single-cell related

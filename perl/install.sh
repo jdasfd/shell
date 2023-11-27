@@ -60,8 +60,8 @@ cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST AlignDB::IntSpan AlignDB::Sto
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST AlignDB::Codon AlignDB::DeltaG AlignDB::GC AlignDB::SQL AlignDB::Window AlignDB::ToXLSX
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST App::RL App::Fasops App::Rangeops
 
-# RLK family needed
-cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST List::Util Bio::SearchIO Path::Tiny Bio::Seq Bio::SeqIO AlignDB::IntSpan
+# RLK family
+cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST List::Util Bio::SearchIO Path::Tiny Bio::Seq Bio::SeqIO IO::Tee Sort::Array
 
 # App::*
 cpanm -nq https://github.com/wang-q/App-Plotr.git
