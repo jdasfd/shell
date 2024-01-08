@@ -210,9 +210,9 @@ conda activate alphafold
 conda install -y -c conda-forge openmm==7.5.1 cudatoolkit==11.2.2 pdbfixer
 conda install -y -c bioconda hmmer hhsuite==3.3.0 kalign2
 
-# pip install via python3.9
+# pip install via python3.8
 pip install absl-py==1.0.0 biopython==1.79 chex==0.0.7 dm-haiku==0.0.9 dm-tree==0.1.6 immutabledict==2.0.0 jax==0.3.25 ml-collections==0.1.0 numpy==1.21.6 pandas==1.3.4 protobuf==3.20.1 scipy==1.7.0 tensorflow-cpu==2.9.0
-#pip install --upgrade --no-cache-dir jax==0.3.25 jaxlib==0.3.25+cuda11.cudnn805 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+# pip install --upgrade --no-cache-dir jax==0.3.25 jaxlib==0.3.25+cuda11.cudnn805 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 pip install -U --no-cache-dir "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 wget https://github.com/deepmind/alphafold/archive/refs/tags/v2.3.1.tar.gz && tar -xzf v2.3.1.tar.gz && export alphafold_path="$(pwd)/alphafold-2.3.1"
@@ -237,6 +237,11 @@ echo >> ~/.bashrc
 source ~/.bashrc
 
 USalign -h
+```
+
+```bash
+pip install gpustat
+gpustat
 ```
 
 ## Reference:
