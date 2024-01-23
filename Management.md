@@ -239,6 +239,19 @@ source ~/.bashrc
 USalign -h
 ```
 
+- mmseqs2 (version 2fad714b525f1975b62c2d2b5aff28274ad57466)
+
+```bash
+cd ~/share
+wget https://mmseqs.com/latest/mmseqs-linux-avx2.tar.gz
+tar -xzvf mmseqs-linux-avx2.tar.gz
+
+echo "# mmseqs2" >> ~/.bashrc
+echo 'export PATH=$PATH:~/share/mmseqs/bin' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+```
+
 ```bash
 pip install gpustat
 gpustat
