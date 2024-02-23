@@ -2,9 +2,13 @@
 
 This is a markdown which recorded all setting of my own env (rooted). There is also a markdown [here](https://github.com/jdasfd/shell/blob/main/Management.md) written all env building process of an unrooted account.
 
-## Linuxbrew
+## Install packages needed by Linuxbrew and some others
 
-### Install linuxbrew and add mirror path
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/jdasfd/shell/master/basic.sh)"
+```
+
+## Install linuxbrew
 
 ```bash
 echo "==> Tuna mirrors of Homebrew/Linuxbrew"
@@ -41,7 +45,13 @@ fi
 source $HOME/.bashrc
 ```
 
-### Install packages managed by Linuxbrew
+## Clone different repos
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/jdasfd/shell/master/download.sh)"
+source $HOME/.bashrc
+```
+
 
 ```bash
 bash $HOME/Scripts/shell/brew.sh
