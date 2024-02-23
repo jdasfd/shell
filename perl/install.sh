@@ -22,11 +22,11 @@ cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Data::Stag Test::Most URI::Es
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST HTML::Entities HTML::HeadParser HTML::TableExtract HTTP::Request::Common LWP::UserAgent PostScript::TextBlock
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST XML::DOM XML::DOM::XPath XML::SAX::Writer XML::Simple XML::Twig XML::Writer GraphViz SVG::Graph
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST SHLOMIF/XML-LibXML-2.0134.tar.gz
-cpanm --mirror-only --mirror $CPAN_MIRROR --notest Convert::Binary::C IO::Scalar
-cpanm --mirror-only --mirror $CPAN_MIRROR --notest CJFIELDS/BioPerl-1.007002.tar.gz
+cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Convert::Binary::C IO::Scalar
+cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST CJFIELDS/BioPerl-1.007002.tar.gz
 
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Bio::ASN1::EntrezGene Bio::DB::EUtilities Bio::Graphics
-cpanm --mirror-only --mirror $CPAN_MIRROR --notest CJFIELDS/BioPerl-Run-1.007002.tar.gz # BioPerl-Run
+cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST CJFIELDS/BioPerl-Run-1.007002.tar.gz # BioPerl-Run
 
 # circos
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Config::General Data::Dumper Digest::MD5 Font::TTF::Font Math::Bezier Math::BigFloat Math::Round Math::VecStat
@@ -41,13 +41,13 @@ cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST MongoDB LWP::Protocol::https 
 
 # text, rtf and xlsx
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Roman Text::Table RTF::Writer Chart::Math::Axis
-cpanm --mirror-only --mirror $CPAN_MIRROR --notest Excel::Writer::XLSX Spreadsheet::XLSX Spreadsheet::ParseExcel Spreadsheet::WriteExcel
+cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Excel::Writer::XLSX Spreadsheet::XLSX Spreadsheet::ParseExcel Spreadsheet::WriteExcel
 
 # Test::*
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Test::Class Test::Roo Test::Taint Test::Without::Module
 
 # Moose and Moo
-cpanm --mirror-only --mirror $CPAN_MIRROR --notest MooX::Options MooseX::Storage
+cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST MooX::Options MooseX::Storage
 
 # Develop
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST App::pmuninstall App::cpanoutdated Minilla Version::Next CPAN::Uploader
@@ -60,7 +60,7 @@ cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST AlignDB::IntSpan AlignDB::Sto
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST AlignDB::Codon AlignDB::DeltaG AlignDB::GC AlignDB::SQL AlignDB::Window AlignDB::ToXLSX
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST App::RL App::Fasops App::Rangeops
 
-# RLK family
+# RAID
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST List::Util Bio::SearchIO Path::Tiny Bio::Seq Bio::SeqIO IO::Tee Sort::Array
 
 # App::*
