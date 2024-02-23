@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-echo "====> Download Genomics related tools <===="
+echo "====> Clone git repos <===="
 
-mkdir -p $HOME/bin
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/share
 mkdir -p $HOME/Scripts

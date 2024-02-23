@@ -110,7 +110,7 @@ brew tap wang-q/tap
 brew tap brewsci/bio
 
 # downloading tools
-brew install aria2 curl wget
+# brew install aria2 curl wget
 
 # gnu
 brew install gnu-sed gnu-tar

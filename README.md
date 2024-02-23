@@ -52,6 +52,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/jdasfd/shell/master/down
 source $HOME/.bashrc
 ```
 
+## Install packages managed by Linuxbrew
 
 ```bash
 bash $HOME/Scripts/shell/brew.sh
