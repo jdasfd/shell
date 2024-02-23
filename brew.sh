@@ -24,14 +24,14 @@ fi
 
 # perl
 echo "==> Install Perl 5.36"
-brew install perl
+brew install perl@5.36
 
 if grep -q -i PERL_536_PATH $HOME/.bashrc; then
     echo "==> .bashrc already contains PERL_536_PATH"
 else
     echo "==> Updating .bashrc with PERL_536_PATH..."
-    PERL_536_BREW=$(brew --prefix)/Cellar/$(brew list --versions perl | sed 's/ /\//' | head -n 1)
-    PERL_536_PATH="export PATH=\"$PERL_536_BREW/bin:\$PATH\""
+    PERL_538_BREW=$(brew --prefix)/Cellar/$(brew list --versions perl | sed 's/ /\//' | head -n 1)
+    PERL_538_PATH="export PATH=\"$PERL_538_BREW/bin:\$PATH\""
     echo '# PERL_536_PATH' >> $HOME/.bashrc
     echo $PERL_536_PATH    >> $HOME/.bashrc
     echo >> $HOME/.bashrc
