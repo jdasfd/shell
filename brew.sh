@@ -23,21 +23,21 @@ else
 fi
 
 # perl
-echo "==> Install Perl 5.36"
-brew install perl@5.36
+echo "==> Install Perl 5.38"
+brew install perl
 
-if grep -q -i PERL_536_PATH $HOME/.bashrc; then
-    echo "==> .bashrc already contains PERL_536_PATH"
+if grep -q -i PERL_538_PATH $HOME/.bashrc; then
+    echo "==> .bashrc already contains PERL_538_PATH"
 else
-    echo "==> Updating .bashrc with PERL_536_PATH..."
+    echo "==> Updating .bashrc with PERL_538_PATH..."
     PERL_538_BREW=$(brew --prefix)/Cellar/$(brew list --versions perl | sed 's/ /\//' | head -n 1)
     PERL_538_PATH="export PATH=\"$PERL_538_BREW/bin:\$PATH\""
-    echo '# PERL_536_PATH' >> $HOME/.bashrc
-    echo $PERL_536_PATH    >> $HOME/.bashrc
+    echo '# PERL_538_PATH' >> $HOME/.bashrc
+    echo $PERL_538_PATH    >> $HOME/.bashrc
     echo >> $HOME/.bashrc
 
     # make the above environment variables available for the rest of this script
-    eval $PERL_536_PATH
+    eval $PERL_538_PATH
 fi
 
 hash cpanm 2>/dev/null || {
