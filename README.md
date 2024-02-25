@@ -59,17 +59,21 @@ bash $HOME/Scripts/shell/brew.sh
 source $HOME/.bashrc
 ```
 
-## Env built
+## Build env packages for each language
 
 ```bash
 bash ~/Scripts/shell/perl/install.sh
+
+# pip3.9 install --upgrade pip
 bash ~/Scripts/dotfiles/python/install.sh
+
 bash ~/Scripts/shell/r/install.sh
-bash ~/Scripts/dotfiles/rust/install.sh
 source ~/.bashrc
+
+# bash ~/Scripts/dotfiles/rust/install.sh
 ```
 
-### R
+## Optional: R packages manually installed
 
 - Manually install the package in R
 
@@ -98,6 +102,10 @@ options(BioC_mirror="http://mirrors.ustc.edu.cn/bioc/")
 ```
 
 ## Symlink
+
+Linking D disk on my own working computer. If the disk space is enough for all your data, please ignore this step.
+
+Doing this is convenient when writing the following code directly use `~` rather than `/mnt/d/`.
 
 ```bash
 ln -s /mnt/d/data/ ~/data
