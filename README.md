@@ -68,7 +68,6 @@ bash ~/Scripts/shell/perl/install.sh
 bash ~/Scripts/dotfiles/python/install.sh
 
 bash ~/Scripts/shell/r/install.sh
-source ~/.bashrc
 
 # bash ~/Scripts/dotfiles/rust/install.sh
 ```
