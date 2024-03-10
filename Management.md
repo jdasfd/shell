@@ -252,6 +252,27 @@ echo >> ~/.bashrc
 source ~/.bashrc
 ```
 
+- ColabFold
+
+Using [localcolabfold](https://github.com/YoshitakaMo/localcolabfold) for rapid deployment.
+
+```bash
+# touch install_colabbatch_linux.sh
+# chmod +x install_colabbatch_linux.sh
+bash install_colabbatch_linux.sh
+
+echo "# colabfold" >> ~/.bashrc
+echo 'export PATH="/home/jyq/share/localcolabfold/colabfold-conda/bin:$PATH"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+colabfold_batch --help
+
+# if something wrong
+cd ~/share/localcolabfold
+bash update_linux.sh
+```
+
 ```bash
 pip install gpustat
 gpustat
