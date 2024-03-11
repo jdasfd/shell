@@ -109,3 +109,29 @@ Doing this is convenient when writing the following code directly use `~` rather
 ```bash
 ln -s /mnt/d/data/ ~/data
 ```
+
+## Optional but recommended: Anaconda3
+
+```bash
+# download .sh from the internet
+bash Anaconda3-2023.09-0-Linux-x86_64.sh
+conda config --set auto_activate_base false
+```
+
+## wsl.conf
+
+Setting wsl2 features in `wsl.conf`:
+
+- `$PATH` contains windows path which would make everything messy. Try [add interop] option.
+- When `dos2unix` unable to rename automatically, try [automount] into wsl.conf.
+
+```txt
+[boot]
+systemd=true
+
+[interop]
+appendWindowsPath = false
+
+[automount]
+options = "metadata"
+```
