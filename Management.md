@@ -266,11 +266,18 @@ echo 'export PATH="/home/jyq/share/localcolabfold/colabfold-conda/bin:$PATH"' >>
 echo >> ~/.bashrc
 source ~/.bashrc
 
+conda activate /home/jyq/share/localcolabfold/colabfold-conda
+# this command could be used to solve the error of ptxas (version issue)
+conda install cuda -c nvidia
 colabfold_batch --help
 
 # if something wrong
 cd ~/share/localcolabfold
 bash update_linux.sh
+
+# for convenience
+# conda rename -p /home/jyq/share/localcolabfold/colabfold-conda colabfold
+# --dry-run: test whether running
 ```
 
 ```bash
