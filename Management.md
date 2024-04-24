@@ -232,7 +232,7 @@ cd USalign/
 make
 
 echo "# USalign" >> ~/.bashrc
-echo 'export PATH=$PATH:~/share/USalign' >> ~/.bashrc
+echo 'export PATH="$PATH:~/share/USalign"' >> ~/.bashrc
 echo >> ~/.bashrc
 source ~/.bashrc
 
@@ -269,6 +269,8 @@ source ~/.bashrc
 conda activate /home/jyq/share/localcolabfold/colabfold-conda
 # this command could be used to solve the error of ptxas (version issue)
 conda install cuda -c nvidia
+# no gpu detected (cudnn issue)
+conda install cudnn
 colabfold_batch --help
 
 # if something wrong
@@ -278,6 +280,17 @@ bash update_linux.sh
 # for convenience
 # conda rename -p /home/jyq/share/localcolabfold/colabfold-conda colabfold
 # --dry-run: test whether running
+# unroot users would not be able to do this
+
+# try to clone env from the path
+conda create -n colab --clone /home/jyq/share/localcolabfold/colabfold-conda
+
+# no gpu detected
+# if cuda12 detected (under activate env)
+# pip install --upgrade "jax[cuda12_pip]==0.4.23" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+
+# use the following code in python to check
+# >>> print(jax.local_devices()[0].platform)
 ```
 
 ```bash
