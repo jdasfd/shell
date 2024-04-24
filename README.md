@@ -118,12 +118,15 @@ bash Anaconda3-2023.09-0-Linux-x86_64.sh
 conda config --set auto_activate_base false
 ```
 
-## wsl.conf
+## WSL2 settings
+
+### wsl.conf
 
 Setting wsl2 features in `wsl.conf`:
 
 - `$PATH` contains windows path which would make everything messy. Try [add interop] option.
 - When `dos2unix` unable to rename automatically, try [automount] into wsl.conf.
+- `/etc/wsl.conf` to generate the locale setting of the specific wsl2.
 
 ```txt
 [boot]
@@ -134,4 +137,15 @@ appendWindowsPath = false
 
 [automount]
 options = "metadata"
+```
+
+### .wslconfig
+
+- Global setting of all distributed ubuntu systems.
+
+```bash
+[wsl2]
+memory=18GB
+swap=2GB
+localhostForwarding=true
 ```
