@@ -122,7 +122,7 @@ conda config --set auto_activate_base false
 
 ### wsl.conf
 
-Setting wsl2 features in `wsl.conf`:
+Local setting of wsl2 features in `wsl.conf`:
 
 - `$PATH` contains windows path which would make everything messy. Try [add interop] option.
 - When `dos2unix` unable to rename automatically, try [automount] into wsl.conf.
@@ -137,15 +137,22 @@ appendWindowsPath = false
 
 [automount]
 options = "metadata"
+options = case = dir
 ```
 
 ### .wslconfig
 
-- Global setting of all distributed ubuntu systems.
+Global setting of all distributed ubuntu systems.
+
+- memory (used memory on windows)
+- swap (swap memory)
+- localhostForwarding: out network could access the wsl
+- networkingMode: mirrored the host network settings
 
 ```bash
 [wsl2]
-memory=18GB
-swap=2GB
+memory=20GB
+swap=0GB
 localhostForwarding=true
+networkingMode=mirrored
 ```
