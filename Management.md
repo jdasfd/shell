@@ -239,15 +239,15 @@ source ~/.bashrc
 USalign -h
 ```
 
-- mmseqs2 (version 2fad714b525f1975b62c2d2b5aff28274ad57466)
+- mmseqs2 (version 7e2840992948ee89dcc336522dc98a74fe0adf00)
 
 ```bash
 cd ~/share
-wget https://mmseqs.com/latest/mmseqs-linux-avx2.tar.gz
+wget https://github.com/soedinglab/MMseqs2/releases/download/14-7e284/mmseqs-linux-avx2.tar.gz
 tar -xzvf mmseqs-linux-avx2.tar.gz
 
 echo "# mmseqs2" >> ~/.bashrc
-echo 'export PATH=$PATH:~/share/mmseqs/bin' >> ~/.bashrc
+echo 'export PATH="$PATH:~/share/mmseqs/bin"' >> ~/.bashrc
 echo >> ~/.bashrc
 source ~/.bashrc
 ```
@@ -293,9 +293,94 @@ conda create -n colab --clone /home/jyq/share/localcolabfold/colabfold-conda
 # >>> print(jax.local_devices()[0].platform)
 ```
 
+- GPU background moniter
+
 ```bash
-pip install gpustat
-gpustat
+# pip install gpustat
+# without dynamic changing
+
+# nvitop is a better one
+pip install nvitop
+nvitop
+```
+
+- ColabDB
+
+Run the following command for building colab local database (bash not very good)
+
+```bash
+mkdir -p ~/share/localcolabfold/colabDB
+cd ~/share/localcolabfold/colabDB
+
+# uniref30_2302
+aria2c --max-connection-per-server=8 https://wwwuser.gwdg.de/~compbiol/colabfold/uniref30_2302.tar.gz
+
+tar xzvf uniref30_2302.tar.gz
+mmseqs tsv2exprofiledb uniref30_2302 uniref30_2302_db
+
+# check
+[ ! -f "uniref30_2302.tsv" ] && echo "uniref30_2302.tsv not found!"
+[ ! -f "uniref30_2302_h.tsv" ] && echo "uniref30_2302_h.tsv not found!"
+[ ! -f "uniref30_2302_seq.tsv" ] && echo "uniref30_2302_seq.tsv not found!"
+[ ! -f "uniref30_2302_aln.tsv" ] && echo "uniref30_2302_aln.tsv not found!"
+[ -d "uniref30_2302_db.tsv" ] && echo "uniref30_2302_db is a directory!"
+
+cat << EOF > db.tmp.lst
+UNIREF30_READY
+COLABDB_READY
+PDB_READY
+PDB100_READY
+PDB_MMCIF_READY
+EOF
+
+# no ${OUT}_h.dbtype
+mmseqs tsv2db uniref30_2302_h.tsv uniref30_2302_db_h --output-dbtype 12
+
+# no ${OUT}.dbtype
+mmseqs tsv2db uniref30_2302.tsv uniref30_2302_db_tmp --output-dbtype 0
+mmseqs compress uniref30_2302_db_tmp uniref30_2302_db
+mmseqs rmdb uniref30_2302_db_tmp
+
+# no ${OUT}_seq.dbtype
+mmseqs tsv2db uniref30_2302_seq.tsv uniref30_2302_db_seq_tmp --output-dbtype 0
+mmseqs compress uniref30_2302_db_seq_tmp uniref30_2302_db_seq
+mmseqs rmdb uniref30_2302_db_seq_tmp
+
+# no ${OUT}_aln.dbtype
+mmseqs tsv2db uniref30_2302_aln.tsv uniref30_2302_db_aln_tmp --output-dbtype 5
+mmseqs compress uniref30_2302_db_aln_tmp uniref30_2302_db_aln
+mmseqs rmdb uniref30_2302_db_aln_tmp
+
+# no ${OUT}_seq_h.dbtype
+mmseqs aliasdb uniref30_2302_db_h uniref30_2302_db_seq_h
+
+# empty .sh
+rm -f -- uniref30_2302_db.sh
+touch UNIREF30_READY
+
+aria2c --max-connection-per-server=8 https://wwwuser.gwdg.de/~compbiol/colabfold/colabfold_envdb_202108.tar.gz
+tar xzvf colabfold_envdb_202108.tar.gz
+mmseqs tsv2exprofiledb "colabfold_envdb_202108" "colabfold_envdb_202108_db"
+
+# pdb
+aria2c --max-connection-per-server=8 https://wwwuser.gwdg.de/~compbiol/colabfold/pdb100_230517.fasta.gz
+mmseqs createdb pdb100_230517.fasta.gz pdb100_230517
+touch PDB_READY
+
+# pdb100
+aria2c --max-connection-per-server=8 https://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/pdb100_foldseek_230517.tar.gz
+tar xzvf pdb100_foldseek_230517.tar.gz pdb100_a3m.ffdata pdb100_a3m.ffindex
+touch PDB100_READY
+
+mkdir -p pdb/divided
+mkdir -p pdb/obsolete
+rsync -rlpt -v -z --delete --port=33444 rsync.wwpdb.org::ftp/data/structures/divided/mmCIF/ pdb/divided
+rsync -rlpt -v -z --delete --port=33444 rsync.wwpdb.org::ftp/data/structures/obsolete/mmCIF/ pdb/obsolete
+touch PDB_MMCIF_READY
+
+# show all ready files
+ls *_READY
+cat db.tmp.lst | tsv-join -f <(ls *_READY) -k 1 -e
 ```
 
 ## Reference:
