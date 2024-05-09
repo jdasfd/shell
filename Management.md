@@ -222,23 +222,6 @@ wget -q -P $alphafold_path/alphafold/common/ https://git.scicore.unibas.ch/schwe
 cd ~/anaconda3/envs/alphafold/lib/python3.8/site-packages/ && patch -p0 < $alphafold_path/docker/openmm.patch
 ```
 
-- US-align (version 20230609)
-
-```bash
-cd ~/share
-
-git clone https://github.com/pylelab/USalign.git
-cd USalign/
-make
-
-echo "# USalign" >> ~/.bashrc
-echo 'export PATH="$PATH:~/share/USalign"' >> ~/.bashrc
-echo >> ~/.bashrc
-source ~/.bashrc
-
-USalign -h
-```
-
 - mmseqs2 (version 7e2840992948ee89dcc336522dc98a74fe0adf00)
 
 ```bash
@@ -293,17 +276,6 @@ conda create -n colab --clone /home/jyq/share/localcolabfold/colabfold-conda
 # >>> print(jax.local_devices()[0].platform)
 ```
 
-- GPU background moniter
-
-```bash
-# pip install gpustat
-# without dynamic changing
-
-# nvitop is a better one
-pip install nvitop
-nvitop
-```
-
 - ColabDB
 
 Run the following command for building colab local database (bash not very good)
@@ -311,19 +283,6 @@ Run the following command for building colab local database (bash not very good)
 ```bash
 mkdir -p ~/share/localcolabfold/colabDB
 cd ~/share/localcolabfold/colabDB
-
-# uniref30_2302
-aria2c --max-connection-per-server=8 https://wwwuser.gwdg.de/~compbiol/colabfold/uniref30_2302.tar.gz
-
-tar xzvf uniref30_2302.tar.gz
-mmseqs tsv2exprofiledb uniref30_2302 uniref30_2302_db
-
-# check
-[ ! -f "uniref30_2302.tsv" ] && echo "uniref30_2302.tsv not found!"
-[ ! -f "uniref30_2302_h.tsv" ] && echo "uniref30_2302_h.tsv not found!"
-[ ! -f "uniref30_2302_seq.tsv" ] && echo "uniref30_2302_seq.tsv not found!"
-[ ! -f "uniref30_2302_aln.tsv" ] && echo "uniref30_2302_aln.tsv not found!"
-[ -d "uniref30_2302_db.tsv" ] && echo "uniref30_2302_db is a directory!"
 
 cat << EOF > db.tmp.lst
 UNIREF30_READY
@@ -333,34 +292,53 @@ PDB100_READY
 PDB_MMCIF_READY
 EOF
 
+# uniref30_2302
+aria2c --max-connection-per-server=8 https://wwwuser.gwdg.de/~compbiol/colabfold/uniref30_2302.tar.gz
+tar xzvf uniref30_2302.tar.gz
+# mmseqs tsv2exprofiledb uniref30_2302 uniref30_2302_db
 # no ${OUT}_h.dbtype
 mmseqs tsv2db uniref30_2302_h.tsv uniref30_2302_db_h --output-dbtype 12
-
 # no ${OUT}.dbtype
 mmseqs tsv2db uniref30_2302.tsv uniref30_2302_db_tmp --output-dbtype 0
 mmseqs compress uniref30_2302_db_tmp uniref30_2302_db
 mmseqs rmdb uniref30_2302_db_tmp
-
 # no ${OUT}_seq.dbtype
 mmseqs tsv2db uniref30_2302_seq.tsv uniref30_2302_db_seq_tmp --output-dbtype 0
 mmseqs compress uniref30_2302_db_seq_tmp uniref30_2302_db_seq
 mmseqs rmdb uniref30_2302_db_seq_tmp
-
 # no ${OUT}_aln.dbtype
 mmseqs tsv2db uniref30_2302_aln.tsv uniref30_2302_db_aln_tmp --output-dbtype 5
 mmseqs compress uniref30_2302_db_aln_tmp uniref30_2302_db_aln
 mmseqs rmdb uniref30_2302_db_aln_tmp
-
 # no ${OUT}_seq_h.dbtype
 mmseqs aliasdb uniref30_2302_db_h uniref30_2302_db_seq_h
-
 # empty .sh
 rm -f -- uniref30_2302_db.sh
 touch UNIREF30_READY
 
+# colabfold envdb
 aria2c --max-connection-per-server=8 https://wwwuser.gwdg.de/~compbiol/colabfold/colabfold_envdb_202108.tar.gz
 tar xzvf colabfold_envdb_202108.tar.gz
-mmseqs tsv2exprofiledb "colabfold_envdb_202108" "colabfold_envdb_202108_db"
+# mmseqs tsv2exprofiledb "colabfold_envdb_202108" "colabfold_envdb_202108_db"
+# no ${OUT}_h.dbtype
+mmseqs tsv2db colabfold_envdb_202108_h.tsv colabfold_envdb_202108_db_h --output-dbtype 12
+# no ${OUT}.dbtype
+mmseqs tsv2db colabfold_envdb_202108.tsv colabfold_envdb_202108_db_tmp --output-dbtype 0
+mmseqs compress colabfold_envdb_202108_db_tmp colabfold_envdb_202108_db
+mmseqs rmdb colabfold_envdb_202108_db_tmp
+# no ${OUT}_seq.dbtype
+mmseqs tsv2db colabfold_envdb_202108_seq.tsv colabfold_envdb_202108_db_seq_tmp --output-dbtype 0
+mmseqs compress colabfold_envdb_202108_db_seq_tmp colabfold_envdb_202108_db_seq
+mmseqs rmdb colabfold_envdb_202108_db_seq_tmp
+# no ${OUT}_aln.dbtype
+mmseqs tsv2db colabfold_envdb_202108_aln.tsv colabfold_envdb_202108_db_aln_tmp --output-dbtype 5
+mmseqs compress colabfold_envdb_202108_db_aln_tmp colabfold_envdb_202108_db_aln
+mmseqs rmdb colabfold_envdb_202108_db_aln_tmp
+# no ${OUT}_seq_h.dbtype
+mmseqs aliasdb colabfold_envdb_202108_db_h colabfold_envdb_202108_db_seq_h
+# empty .sh
+rm -f -- colabfold_envdb_202108_db.sh
+touch COLABDB_READY
 
 # pdb
 aria2c --max-connection-per-server=8 https://wwwuser.gwdg.de/~compbiol/colabfold/pdb100_230517.fasta.gz
@@ -381,6 +359,34 @@ touch PDB_MMCIF_READY
 # show all ready files
 ls *_READY
 cat db.tmp.lst | tsv-join -f <(ls *_READY) -k 1 -e
+```
+
+- GPU background moniter
+
+```bash
+# pip install gpustat
+# without dynamic changing
+
+# nvitop is a better one
+pip install nvitop
+nvitop
+```
+
+- US-align (version 20230609)
+
+```bash
+cd ~/share
+
+git clone https://github.com/pylelab/USalign.git
+cd USalign/
+make
+
+echo "# USalign" >> ~/.bashrc
+echo 'export PATH="$PATH:~/share/USalign"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+USalign -h
 ```
 
 ## Reference:
