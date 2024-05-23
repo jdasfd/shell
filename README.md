@@ -153,6 +153,11 @@ Global setting of all distributed ubuntu systems.
 [wsl2]
 memory=20GB
 swap=0GB
+
+[experimental]
 localhostForwarding=true
+autoMemoryReclaim=gradual
 networkingMode=mirrored
+dnsTunneling=true
+autoProxy=true
 ```

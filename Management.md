@@ -359,6 +359,9 @@ touch PDB_MMCIF_READY
 # show all ready files
 ls *_READY
 cat db.tmp.lst | tsv-join -f <(ls *_READY) -k 1 -e
+
+# if showing nothing
+rm db.tmp.lst
 ```
 
 - GPU background moniter
