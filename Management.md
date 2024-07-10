@@ -55,7 +55,7 @@ git clone https://github.com/eBay/tsv-utils.git
 cd tsv-utils
 make
 
-echo "# STAR" >> ~/.bashrc
+echo "# tsv utils" >> ~/.bashrc
 echo 'export PATH=/home/jyq/share/tsv-utils/bin:$PATH' >> ~/.bashrc
 echo >> ~/.bashrc
 source ~/.bashrc
