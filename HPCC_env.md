@@ -105,3 +105,16 @@ make install PREFIX=${HOME}/.local/bin
 cd-hit -h
 ```
 
+
+- GenomeTools (v1.6.6)
+
+```bash
+cd ~/share
+tar xzvf v1.6.6.tar.gz
+cd genometools-1.6.6
+make prefix=${HOME}/.local
+make install prefix=${HOME}/.local
+gt --version
+#gt (GenomeTools) 1.6.6
+```
+
