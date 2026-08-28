@@ -159,6 +159,17 @@ minimap2 --version
 #2.31-r1302
 ```
 
+
+- LTR Retriever (v3.0.5)
+
+```bash
+cd ~/share
+tar xzvf v3.0.5.tar.gz
+ln -s ~/share/LTR_retriever-3.0.5/LTR_retriever ${HOME}/.local/bin/LTR_retriever
+
+LTR_retriever -h
+```
+
 - IRF, Inverted Repeats Finder (v3.09)
 
 ```bash
