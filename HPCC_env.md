@@ -37,3 +37,14 @@ ln -sf libbz2.so.1.0 libbz2.so
 
 `error while loading shared libraries: libzstd.so.1: cannot open shared object file: No such file or directory`
 
+- zstd (v1.5.7)
+
+```bash
+cd ~/share
+tar xzvf zstd-1.5.7.tar.gz
+cd zstd-1.5.7
+make clean
+make -j4
+make install PREFIX=/share/home/zhuqingshao/.local
+```
+
