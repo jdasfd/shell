@@ -1,6 +1,8 @@
 # The HPCC environment
 
-## EDTA
+## How to solve the problem when build all dependencies from the source
+
+The major path of all related files:
 
 - local env
 
@@ -14,6 +16,60 @@ echo 'export MANPATH="/share/home/zhuqingshao/.local/man:/share/home/zhuqingshao
 echo >> ~/.bashrc
 source ~/.bashrc
 ```
+
+### Scripts
+
+- single file:
+
+`${PATH}` or `cp [file] ${HOME}/.local/bin`
+
+- multiple files (with Perl or Python modules):
+
+`ln -s [file] ${HOME}/.local/bin` (allow files to find their modules in the relative path)
+
+- with related setup or configuration files:
+
+`./configure`
+
+`python3 setup.py install`
+
+### Build from the source
+
+- Only with makefile
+
+`grep "^install:" Makefile`: whether there is an install rule in the Makefile
+
+if could be installed: `make` -> `make install PREFIX=[path]|BINDIR=[path]|prefix=[path]` (check the variable if make file could be read)
+
+if not: `make` -> `${PATH}`
+
+- autoconf
+
+`./configure --prefix=${HOME}/.local`
+`make`
+`make install`
+
+There are many variables could be related to `./configure`, check the help message:
+
+`./configure --help`
+
+### Solve the gcc library
+
+For the code compatibility, the HPCC use the old version of the gcc and gcc library.
+
+- Load new version of the gcc
+
+`module avail`: check the available modules.
+
+`module load gcc/gcc-11.5.0` to use the new version of the gcc and gcc library.
+
+- Check the link of the library
+
+`ldd $(which [package])`: give out the related library.
+
+`ldconfig`: update the library cache.
+
+## EDTA
 
 `error while loading shared libraries: libbz2.so.1.0: cannot open shared object file: No such file or directory`
 
