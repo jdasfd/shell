@@ -313,3 +313,14 @@ seqtk
 #Version: 1.5-r133
 ```
 
+- TE sorter (v1.5.1)
+
+```bash
+cd ~/share
+tar xzvf v1.5.1.tar.gz
+cd TEsorter-1.5.1
+python3 setup.py install
+
+TEsorter -v
+#TEsorter 1.5.1
+```
