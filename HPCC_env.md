@@ -70,3 +70,15 @@ rmblastn -version
 # Package: blast 2.17.0, build Aug 27 2026 17:57:53
 ```
 
+- TRF, tandem repeats finder (v4.09.1)
+
+```bash
+cd ~/share
+tar xzvf v4.09.1.tar.gz
+cd TRF-4.09.1
+./configure --prefix=${HOME}/.local
+make
+make install
+trf
+```
+
