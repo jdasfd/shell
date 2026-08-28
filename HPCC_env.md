@@ -158,3 +158,15 @@ cp minimap2 ${HOME}/.local/bin/
 minimap2 --version
 #2.31-r1302
 ```
+
+- IRF, Inverted Repeats Finder (v3.09)
+
+```bash
+cd ~/share
+tar xzvf IRFv3.09.tar.gz
+cd IRF-IRFv3.09/src
+make
+cp ../bin/irf.exe ${HOME}/.local/bin/
+
+irf.exe
+```
