@@ -146,3 +146,15 @@ make install
 bcftools version
 ```
 
+
+- minimap2 (v2.31.1)
+
+```bash
+cd ~/share
+tar jxvf minimap2-2.31.tar.bz2
+cd minimap2-2.31
+make
+cp minimap2 ${HOME}/.local/bin/
+minimap2 --version
+#2.31-r1302
+```
