@@ -115,6 +115,22 @@ make -j4
 make install PREFIX=/share/home/zhuqingshao/.local
 ```
 
+- python rebuilt (with libbz2 from bzip2 and liblzma from xz)
+
+```bash
+cd ~/share/Python-3.9.19
+
+./configure \
+    --prefix=${HOME}/.local \
+    BZIP2_CFLAGS="-I${HOME}/.local/include" \
+    BZIP2_LIBS="-L${HOME}/.local/lib -lbz2" \
+    LZMA_CFLAGS="-I${HOME}/.local/include" \
+    LZMA_LIBS="-L${HOME}/.local/lib -llzma" \
+    --enable-shared
+make
+make install
+```
+
 - RMblast/Blast+ (v2.17.1)
 
 ```bash
