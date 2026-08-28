@@ -94,3 +94,14 @@ make install
 hmmsearch -h
 ```
 
+- cd-hit (v4.8.1)
+
+```bash
+cd ~/share
+tar xzvf cd-hit-v4.8.1-2019-0228.tar.gz
+cd cd-hit-v4.8.1-2019-0228
+make
+make install PREFIX=${HOME}/.local/bin
+cd-hit -h
+```
+
