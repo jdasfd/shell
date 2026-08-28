@@ -48,3 +48,25 @@ make -j4
 make install PREFIX=/share/home/zhuqingshao/.local
 ```
 
+- RMblast/Blast+ (v2.17.1)
+
+```bash
+cd ~/share
+module load gcc/gcc-11.5.0
+tar xzvf ncbi-blast-2.17.0+-src.tar.gz
+cd ncbi-blast-2.17.0+-src
+gunzip ../isb-2.17.1+-rmblast.patch.gz
+patch -p1 < ../isb-2.17.1+-rmblast.patch
+cd c++
+export CC=gcc
+export CXX=g++
+
+./configure --prefix=${HOME}/.local --without-debug --with-mt --with-projects=scripts/projects/rmblastn/project.lst
+make
+make install
+
+rmblastn -version
+#rmblastn: 2.17.1+
+# Package: blast 2.17.0, build Aug 27 2026 17:57:53
+```
+
