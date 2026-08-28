@@ -263,6 +263,16 @@ cp ../bin/irf.exe ${HOME}/.local/bin/
 irf.exe
 ```
 
+- FamDB (v3.0.0)
+
+```bash
+cd ~/share
+tar xzvf 3.0.0.tar.gz
+cd FamDB-3.0.0
+make
+python3 famdb.py --help
+```
+
 - seqtk (v1.5)
 
 ```bash
