@@ -159,6 +159,19 @@ minimap2 --version
 #2.31-r1302
 ```
 
+- LTR Finder (v1.07)
+
+```bash
+cd ~/share/LTR_Finder/source
+make
+
+echo "# LTR Finder" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/LTR_Finder/source"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+ltr_finder -h
+```
 
 - LTR Finder parallel (v1.4)
 
