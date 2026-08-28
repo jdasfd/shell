@@ -82,3 +82,15 @@ make install
 trf
 ```
 
+- HMMER (v3.4)
+
+```bash
+cd ~/share
+tar xzvf hmmer.tar.gz
+cd hmmer-3.4
+./configure --prefix=${HOME}/.local
+make
+make install
+hmmsearch -h
+```
+
