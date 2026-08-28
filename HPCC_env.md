@@ -17,3 +17,23 @@ source ~/.bashrc
 
 `error while loading shared libraries: libbz2.so.1.0: cannot open shared object file: No such file or directory`
 
+- bzip2 (v1.0.8)
+
+```bash
+cd ~/share
+tar xzvf bzip2-latest.tar.gz
+cd bzip2-1.0.8
+make clean
+make -f Makefile-libbz2_so -j4
+make -j4
+make install PREFIX=/share/home/zhuqingshao/.local
+
+cp libbz2.so.1.0.8 /share/home/zhuqingshao/.local/lib/
+cd $HOME/.local/lib
+ln -sf libbz2.so.1.0.8 libbz2.so.1.0
+ln -sf libbz2.so.1.0.8 libbz2.so.1
+ln -sf libbz2.so.1.0 libbz2.so
+```
+
+`error while loading shared libraries: libzstd.so.1: cannot open shared object file: No such file or directory`
+
