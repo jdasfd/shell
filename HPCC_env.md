@@ -300,6 +300,16 @@ make
 python3 famdb.py --help
 ```
 
+
+- TIR learner (v4.07)
+
+```bash
+cd ~/share
+tar xzvf v4.07.tar.gz
+cd TIR-Learner-4.07/TIR-Learner4
+python3 TIR-Learner.py -h
+```
+
 - seqtk (v1.5)
 
 ```bash
@@ -324,3 +334,14 @@ python3 setup.py install
 TEsorter -v
 #TEsorter 1.5.1
 ```
+
+- HelitronScanner (v1.1)
+
+```bash
+cd ~/share
+unzip HelitronScanner_V1.0.zip
+cd HelitronScanner
+# prebuild java pack
+java -jar ./HelitronScanner.jar
+```
+
