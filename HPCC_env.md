@@ -206,3 +206,17 @@ cp ../bin/irf.exe ${HOME}/.local/bin/
 
 irf.exe
 ```
+
+- seqtk (v1.5)
+
+```bash
+cd ~/share
+tar xzvf v1.5.tar.gz
+cd seqtk-1.5
+make
+make BINDIR=${HOME}/.local/bin install
+
+seqtk
+#Version: 1.5-r133
+```
+
