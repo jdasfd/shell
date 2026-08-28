@@ -229,6 +229,20 @@ make install
 bcftools version
 ```
 
+- bedtools (v2.31.1)
+
+```bash
+cd ~/share
+tar xzvf bedtools-2.31.1.tar.gz
+cd bedtools2
+
+make clean
+make
+make install prefix=${HOME}/.local
+
+bedtools --version
+#bedtools v2.31.1
+```
 
 - minimap2 (v2.31.1)
 
@@ -237,7 +251,9 @@ cd ~/share
 tar jxvf minimap2-2.31.tar.bz2
 cd minimap2-2.31
 make
+# cp to local bin
 cp minimap2 ${HOME}/.local/bin/
+
 minimap2 --version
 #2.31-r1302
 ```
