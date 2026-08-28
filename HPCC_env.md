@@ -118,3 +118,31 @@ gt --version
 #gt (GenomeTools) 1.6.6
 ```
 
+- samtools/bcftools/htslib (v1.24)
+
+```bash
+cd ~/share
+tar -jxvf htslib-1.24.tar.bz2
+cd htslib-1.24
+./configure --prefix=${HOME}/.local
+make
+make install
+htslib version
+
+cd ~/share
+tar -jxvf samtools-1.24.tar.bz2
+cd samtools-1.24
+./configure --prefix=${HOME}/.local
+make
+make install
+samtools version
+
+cd ~/share
+tar jxvf bcftools-1.24.tar.bz2
+cd bcftools-1.24
+./configure --prefix=${HOME}/.local
+make
+make install
+bcftools version
+```
+
