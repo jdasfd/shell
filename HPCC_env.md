@@ -9,7 +9,7 @@ The major path of all related files:
 ```bash
 echo "# local env" >> ~/.bashrc
 echo 'export PATH="/share/home/zhuqingshao/.local/bin:$PATH"' >> ~/.bashrc
-echo 'export LD_LIBRARY_PATH="/share/home/zhuqingshao/.local/lib:/share/home/zhuqingshao/.local/lib64:$LD_LIBRARY_PATH"' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH="/share/home/zhuqingshao/.local/lib:/share/home/zhuqingshao/.local/libexec:$LD_LIBRARY_PATH"' >> ~/.bashrc
 echo 'export MANPATH="/share/home/zhuqingshao/.local/man:/share/home/zhuqingshao/.local/man/man1:$MANPATH"' >> ~/.bashrc
 echo >> ~/.bashrc
 source ~/.bashrc
@@ -113,7 +113,7 @@ make -j4
 make install PREFIX=/share/home/zhuqingshao/.local
 ```
 
-- python rebuilt (with libbz2 from bzip2 and liblzma from xz)
+- Python rebuilt (with libbz2 from bzip2 and liblzma from xz)
 
 ```bash
 cd ~/share/Python-3.9.19
@@ -386,5 +386,21 @@ python3 utils/download_dfam.py
 # type 1,2,4 to download all consensus sequences
 
 # rsync -avP Libraries/ zhuqingshao@xxx:share/FamDB-3.0.0/Libraries/
+```
+
+- RepeatMasker (v4.2.4)
+
+```bash
+cd ~/share
+tar xzvf RepeatMasker-4.2.4.tar.gz
+cd RepeatMasker
+./configure
+
+echo "# RepeatMasker" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/RepeatMasker"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+RepeatMasker -h
 ```
 
