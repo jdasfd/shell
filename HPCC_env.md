@@ -568,3 +568,17 @@ source ~/.bashrc
 
 RepeatModeler -help
 ```
+
+- EDTA pipeline
+
+```bash
+cd ~/share
+tar xzvf v2.3.0.tar.gz
+
+echo "# EDTA pipeline" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/EDTA-2.3.0"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+EDTA.pl -h
+```
