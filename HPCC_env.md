@@ -140,7 +140,9 @@ cd perl-5.34.3
 ./Configure -des \
     -Dprefix=${HOME}/.local/perl-5.34.3 \
     -Duseshrplib \
-    -Dlibpth=${HOME}/.local/lib
+    -Dusethreads \
+    -Dlibpth=${HOME}/.local/lib \
+    -Dincpth=${HOME}/.local/include
 make
 make test
 make install
@@ -350,6 +352,17 @@ cd LTR_retriever-2.9.0
 ln -s ~/share/LTR_retriever-2.9.0/LTR_retriever ${HOME}/.local/bin/LTR_retriever
 
 LTR_retriever -h
+```
+
+- LTR Harvest parallel (v1.3)
+
+```bash
+cd ~/share
+tar xzvf v1.3.tar.gz
+cd LTR_HARVEST_parallel-1.3
+ln -s ~/share/LTR_HARVEST_parallel-1.3/LTR_HARVEST_parallel ${HOME}/.local/bin/LTR_HARVEST_parallel
+
+LTR_HARVEST_parallel -h
 ```
 
 - IRF, Inverted Repeats Finder (v3.09)
