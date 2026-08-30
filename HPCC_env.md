@@ -127,6 +127,46 @@ cd ~/share/Python-3.9.19
     --enable-shared
 make
 make install
+
+- Perl local env (v5.34.3)
+
+```bash
+wget https://www.cpan.org/src/5.0/perl-5.34.3.tar.gz
+# rsync -avP perl-5.34.3.tar.gz zhuqingshao@xxx:share/
+
+cd ~/share
+tar xzvf perl-5.34.3.tar.gz
+cd perl-5.34.3
+./Configure -des \
+    -Dprefix=${HOME}/.local/perl-5.34.3 \
+    -Duseshrplib \
+    -Dlibpth=${HOME}/.local/lib
+make
+make test
+make install
+
+echo "# local Perl 5.34" >> ~/.bashrc
+echo 'export PERL_HOME="${HOME}/.local/perl-5.34.3"' >> ~/.bashrc
+echo 'export PATH="${PERL_HOME}/bin:$PATH"' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH="${PERL_HOME}/lib:${LD_LIBRARY_PATH}"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+cd ~/share
+# cpanm
+wget https://mirror.nju.edu.cn/CPAN/authors/id/M/MI/MIYAGAWA/App-cpanminus-1.7049.tar.gz
+tar xzvf App-cpanminus-1.7049.tar.gz
+cd App-cpanminus-1.7049
+perl Makefile.PL
+make
+make install
+
+echo "# cpanm" >> ~/.bashrc
+echo 'export PERL_CPANM_OPT="--notest --mirror-only --mirror https://mirror.nju.edu.cn/CPAN/"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+cpanm JSON
 ```
 
 - RMblast/Blast+ (v2.17.1)
