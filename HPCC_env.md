@@ -463,3 +463,94 @@ source ~/.bashrc
 RepeatMasker -h
 ```
 
+- RepeatScout
+
+```bash
+cd ~/share
+tar xzvf v1.0.7.tar.gz
+cd RepeatScout-1.0.7
+make CFLAGS="-std=c99 -O2"
+
+echo "# RepeatScout" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/RepeatScout-1.0.7"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+RepeatScout -h
+```
+
+- RECON (v1.10)
+
+```bash
+cd ~/share
+tar xzvf v1.10.tar.gz
+cd RECON-1.10
+make
+make install
+
+echo "# RECON" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/RECON-1.10/bin"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+run_recon.sh
+#usage: run_recon.sh bin_dir seq_list msp_file [num_sections] [work_dir]
+```
+
+- RepeatAfterMe (v0.0.7)
+
+```bash
+cd ~/share
+tar xzvf RepeatAfterMe_V0.0.7.tar.gz
+cd RepeatAfterMe-RepeatAfterMe_V0.0.7
+make
+
+echo "# RepeatAfterMe" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/RepeatAfterMe-RepeatAfterMe_V0.0.7"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+RAMExtend -h
+```
+
+- UCSC Genome Browser
+
+RepeatModeler only needs three twobit related scripts:faToTwoBit/twoBitToFa/twoBitInfo.
+
+Rewriting `makefile` to the `ucsc_twoBit`. Helped by the GLM-5.3.
+
+```bash
+cd ~/share/ucsc_twoBit
+make
+cp faToTwoBit twoBitInfo twoBitToFa ~/.local/bin
+faToTwoBit
+twoBitInfo
+twoBitToFa
+```
+
+- NINJA
+
+```bash
+cd ~/share
+tar xzvf 1.00-cluster_only.tar.gz
+cd NINJA-1.00-cluster_only/NINJA
+make
+cp ./Ninja ${HOME}/.local/bin/
+Ninja -h
+```
+
+- RepeatModeler (v2.0.9)
+
+```bash
+cd ~/share
+tar xzvf 2.0.9.tar.gz
+cd RepeatModeler-2.0.9
+./configure
+
+echo "# RepeatModeler" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/RepeatModeler-2.0.9"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+RepeatModeler -help
+```
