@@ -359,3 +359,23 @@ cd HelitronScanner
 java -jar ./HelitronScanner.jar
 ```
 
+
+- FamDB (v3.0.0)
+
+```bash
+cd ~/share
+tar xzvf 3.0.0.tar.gz
+cd FamDB-3.0.0
+make
+python3 famdb.py --help
+
+# download the database on a web-connected machine
+python3 famdb.py -i Libraries/famdb/ check Viridiplantae
+python3 famdb.py -i Libraries/famdb/ check --component cc Viridiplantae
+python3 famdb.py -i Libraries/famdb/ check --component uc Viridiplantae
+python3 utils/download_dfam.py
+# type 1,2,4 to download all consensus sequences
+
+# rsync -avP Libraries/ zhuqingshao@xxx:share/FamDB-3.0.0/Libraries/
+```
+
