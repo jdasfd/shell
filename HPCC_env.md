@@ -304,17 +304,6 @@ cp ../bin/irf.exe ${HOME}/.local/bin/
 irf.exe
 ```
 
-- FamDB (v3.0.0)
-
-```bash
-cd ~/share
-tar xzvf 3.0.0.tar.gz
-cd FamDB-3.0.0
-make
-python3 famdb.py --help
-```
-
-
 - TIR learner (v4.07)
 
 ```bash
@@ -359,6 +348,26 @@ cd HelitronScanner
 java -jar ./HelitronScanner.jar
 ```
 
+- mafft (v7.525)
+
+```bash
+cd ~/share
+tar xzvf mafft-7.525-with-extensions-src.tgz
+cd mafft-7.525-with-extensions/core
+# vim Makefile
+# change: PREFIX=/share/home/zhuqingshao/.local
+make
+make install
+
+cd ~/share/mafft-7.525-with-extensions/extensions
+# vim Makefile
+# change: PREFIX=/share/home/zhuqingshao/.local
+make
+make install
+
+mafft --version
+#v7.525 (2024/Mar/13)
+```
 
 - FamDB (v3.0.0)
 
