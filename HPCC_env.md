@@ -345,8 +345,9 @@ LTR_FINDER_parallel -h
 
 ```bash
 cd ~/share
-tar xzvf v3.0.5.tar.gz
-ln -s ~/share/LTR_retriever-3.0.5/LTR_retriever ${HOME}/.local/bin/LTR_retriever
+tar xzvf v2.9.0.tar.gz
+cd LTR_retriever-2.9.0
+ln -s ~/share/LTR_retriever-2.9.0/LTR_retriever ${HOME}/.local/bin/LTR_retriever
 
 LTR_retriever -h
 ```
