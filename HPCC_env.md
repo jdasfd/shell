@@ -189,6 +189,20 @@ make install
 rmblastn -version
 #rmblastn: 2.17.1+
 # Package: blast 2.17.0, build Aug 27 2026 17:57:53
+
+# cp dynamic library to the local env
+# ldd $(which rmblastn)
+# libstdc++.so.6, libgomp.so.1, libgcc_s.so.1
+cp -v /share/apps/gcc/gcc11.5.0/lib64/libstdc++.so* ~/.local/lib/
+cp -v /share/apps/gcc/gcc11.5.0/lib64/libgomp.so* ~/.local/lib/
+cp -v /share/apps/gcc/gcc11.5.0/lib64/libgcc_s.so* ~/.local/lib/
+
+cd ~/.local/lib
+rm -f libstdc++.so.6 libgomp.so.1 libgcc_s.so.1
+ln -sf libstdc++.so.6.0.29 libstdc++.so.6
+ln -sf libgomp.so.1.0.0 libgomp.so.1
+
+# ldd $(which rmblastn)
 ```
 
 - TRF, tandem repeats finder (v4.09.1)
@@ -224,6 +238,9 @@ cd cd-hit-v4.8.1-2019-0228
 make
 make install PREFIX=${HOME}/.local/bin
 cd-hit -h
+
+# the same lib as the rmblastn
+# ldd $(which cd-hit)
 ```
 
 
@@ -237,6 +254,8 @@ make prefix=${HOME}/.local
 make install prefix=${HOME}/.local
 gt --version
 #gt (GenomeTools) 1.6.6
+
+# ldd $(which gt)
 ```
 
 - samtools/bcftools/htslib (v1.24)
