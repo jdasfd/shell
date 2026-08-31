@@ -128,6 +128,23 @@ cd ~/share/Python-3.9.19
 make
 make install
 
+# pip
+pip3 config set global.index-url https://mirror.nju.edu.cn/pypi/web/simple/
+pip3 install --upgrade pip
+pip3 install --user h5py
+pip3 install biopython
+pip3 install xopen
+pip3 install --user bitarray
+
+# pip3 install pyfastx: need network access
+# manually install
+cd ~/share
+tar xzvf 2.3.1.tar.gz
+cd pyfastx-2.3.1
+# locally download all packs under this dir
+python3 setup.py install
+```
+
 - Perl local env (v5.34.3)
 
 ```bash
