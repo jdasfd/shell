@@ -262,7 +262,6 @@ cd-hit -h
 # ldd $(which cd-hit)
 ```
 
-
 - GenomeTools (v1.6.6)
 
 ```bash
@@ -401,6 +400,13 @@ cd ~/share
 tar xzvf v4.07.tar.gz
 cd TIR-Learner-4.07/TIR-Learner4
 python3 TIR-Learner.py -h
+
+echo "#TIR_learner" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/TIR-Learner-4.07/TIR-Learner4"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+TIR-Learner.py -h
 ```
 
 - seqtk (v1.5)
