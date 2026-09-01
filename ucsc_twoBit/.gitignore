@@ -1,0 +1,6 @@
+# build artifacts - never commit these
+obj/
+lib2bit.a
+faToTwoBit
+twoBitToFa
+twoBitInfo
