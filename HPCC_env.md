@@ -584,6 +584,9 @@ RepeatModeler only needs three twobit related scripts:faToTwoBit/twoBitToFa/twoB
 
 Rewriting `makefile` to the `ucsc_twoBit`. Helped by the GLM-5.3.
 
+The ucsc_twoBit is uploaded via the following link:
+[ucsc_twoBit](https://github.com/jdasfd/shell/tree/main/twoBit)
+
 ```bash
 cd ~/share/ucsc_twoBit
 make
