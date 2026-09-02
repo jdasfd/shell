@@ -378,15 +378,19 @@ source ~/.bashrc
 LTR_HARVEST_parallel -h
 ```
 
-- LTR Harvest parallel (v1.3)
+- LTR Retriever (v3.0.5)
 
 ```bash
 cd ~/share
-tar xzvf v1.3.tar.gz
-cd LTR_HARVEST_parallel-1.3
-ln -s ~/share/LTR_HARVEST_parallel-1.3/LTR_HARVEST_parallel ${HOME}/.local/bin/LTR_HARVEST_parallel
+tar xzvf v2.9.0.tar.gz
+cd LTR_retriever-2.9.0
 
-LTR_HARVEST_parallel -h
+echo "# LTR_retriever" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/LTR_retriever-2.9.0"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+LTR_retriever -h
 ```
 
 - IRF, Inverted Repeats Finder (v3.09)
