@@ -363,14 +363,19 @@ source ~/.bashrc
 LTR_FINDER_parallel -h
 ```
 
+- LTR Harvest parallel (v1.3)
 
 ```bash
 cd ~/share
-tar xzvf v2.9.0.tar.gz
-cd LTR_retriever-2.9.0
-ln -s ~/share/LTR_retriever-2.9.0/LTR_retriever ${HOME}/.local/bin/LTR_retriever
+tar xzvf v1.3.tar.gz
+cd LTR_HARVEST_parallel-1.3
 
-LTR_retriever -h
+echo "# LTR_HARVEST_parallel" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/LTR_HARVEST_parallel-1.3"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+LTR_HARVEST_parallel -h
 ```
 
 - LTR Harvest parallel (v1.3)
