@@ -453,7 +453,23 @@ cd ~/share
 unzip HelitronScanner_V1.0.zip
 cd HelitronScanner
 # prebuild java pack
-java -jar ./HelitronScanner.jar
+
+java -jar HelitronScanner.jar
+mv ../TrainingSet .
+
+cat > HelitronScanner <<'EOF'
+#!/bin/bash
+HS_DIR=$(cd $(dirname $0); pwd)
+exec java -jar "${HS_DIR}/HelitronScanner.jar" "$@"
+EOF
+chmod +x HelitronScanner
+
+echo "#HelitronScanner" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/HelitronScanner"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+HelitronScanner
 ```
 
 - mafft (v7.525)
