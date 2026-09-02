@@ -623,11 +623,23 @@ source ~/.bashrc
 RepeatModeler -help
 ```
 
-- EDTA pipeline
+- AnnoSINE (v2.0.9)
 
 ```bash
 cd ~/share
-tar xzvf v2.3.0.tar.gz
+tar xzvf v2.0.9.tar.gz
+cd AnnoSINE_v2-2.0.9/bin
+pip3 install -r requirements.txt
+sed -i '1i#!/usr/bin/env python3' AnnoSINE_v2
+chmod +x AnnoSINE_v2
+
+echo "# AnnoSINE" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/AnnoSINE_v2-2.0.9/bin"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+AnnoSINE_v2 -h
+```
+
 
 echo "# EDTA pipeline" >> ~/.bashrc
 echo 'export PATH="$PATH:/share/home/zhuqingshao/share/EDTA-2.3.0"' >> ~/.bashrc
