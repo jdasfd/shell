@@ -354,12 +354,15 @@ cd ~/share
 tar xzvf v1.4.tar.gz
 cd LTR_FINDER_parallel-1.4
 # prebuilt, ln to local bin
-ln -s ~/share/LTR_FINDER_parallel-1.4/LTR_FINDER_parallel ${HOME}/.local/bin/LTR_FINDER_parallel
+
+echo "# LTR_FINDER_parallel" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/LTR_FINDER_parallel-1.4"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
 
 LTR_FINDER_parallel -h
 ```
 
-- LTR Retriever (v3.0.5)
 
 ```bash
 cd ~/share
