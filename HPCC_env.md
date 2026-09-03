@@ -670,11 +670,24 @@ cp mdust ${HOME}/.local/bin/
 mdust -h
 ```
 
+- EDTA pipeline (v2.3.2)
+
+**Note:** The EDTA pipeline release is the version v2.3.0, which do not support the latest version of the TIR-Learner v4. There are many [issues](https://github.com/oushujun/EDTA/issues) there, please go and check. Here we used the version v2.3.2 ([Bump version to v2.3.3](https://github.com/oushujun/EDTA/commit/07b9904b034c3a54941ff10b9b6c1beaee3872fa)). And this version is compatible with the latest TIR-Learner v4.
+
+```bash
+cd ~/share
+git clone https://github.com/oushujun/EDTA.git
+# rsync -avP EDTA zhuqingshao@xxx:share/
 
 echo "# EDTA pipeline" >> ~/.bashrc
-echo 'export PATH="$PATH:/share/home/zhuqingshao/share/EDTA-2.3.0"' >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/EDTA"' >> ~/.bashrc
 echo >> ~/.bashrc
 source ~/.bashrc
 
 EDTA.pl -h
+
+# the test code
+bsub -q mpi -J edat -n 24 -o ./ -e ./ "EDTA.pl --genome HapB.reviewed.main20.fa --tirlearner /share/home/zhuqingshao/share/TIR‑Learner‑4.07/TIR‑Learner4 --species others --step all --sensitive 1 --anno 1 --evaluate 1 --threads 24"
+```
+
 ```
