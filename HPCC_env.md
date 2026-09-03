@@ -658,6 +658,18 @@ node -v
 # ldd $(which node)
 ```
 
+- mdust (publicly archived)
+
+```bash
+cd ~/share
+git clone https://github.com/lh3/mdust.git
+# rsync -avP mdust zhuqingshao@xxx:share/
+cd mdust
+make
+cp mdust ${HOME}/.local/bin/
+mdust -h
+```
+
 
 echo "# EDTA pipeline" >> ~/.bashrc
 echo 'export PATH="$PATH:/share/home/zhuqingshao/share/EDTA-2.3.0"' >> ~/.bashrc
