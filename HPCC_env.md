@@ -640,6 +640,24 @@ source ~/.bashrc
 AnnoSINE_v2 -h
 ```
 
+- Node.js (v16.20.2)
+
+**Notice:** The latest version of Node.js is v26.5.1, however it is not compatible with the python version 3.9.19. So, we used v16.20.2 here. And the configure here would not be cleaned by the `make clean` command. If you want to clean the configure, please `rm -rf node-v16.20.2` and redo the unzip step.
+
+```bash
+cd ~/share
+tar xzvf node-v16.20.2.tar.gz
+cd node-v16.20.2
+
+module load gcc/gcc-11.5.0
+./configure --prefix=${HOME}/.local --without-intl
+make
+make install
+
+node -v
+# ldd $(which node)
+```
+
 
 echo "# EDTA pipeline" >> ~/.bashrc
 echo 'export PATH="$PATH:/share/home/zhuqingshao/share/EDTA-2.3.0"' >> ~/.bashrc
