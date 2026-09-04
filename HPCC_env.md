@@ -135,6 +135,10 @@ pip3 install --user h5py
 pip3 install biopython
 pip3 install xopen
 pip3 install --user bitarray
+pip3 install pytz
+# wget https://files.pythonhosted.org/packages/3d/dd/bed19c2974296661493d7acc4407b1d2db4e2a482197df100f8f965b6225/pandas-2.2.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+pip3 install pandas==2.1.4
+#Successfully installed numpy-2.0.2 pandas-2.2.3 python-dateutil-2.9.0.post0 tzdata-2026.3
 
 # pip3 install pyfastx: need network access
 # manually install
@@ -402,7 +406,7 @@ cd IRF-IRFv3.09/src
 make
 cp ../bin/irf.exe ${HOME}/.local/bin/
 
-irf.exe
+irf.exe -h
 ```
 
 - TIR learner (v4.07)
@@ -630,8 +634,19 @@ cd ~/share
 tar xzvf v2.0.9.tar.gz
 cd AnnoSINE_v2-2.0.9/bin
 pip3 install -r requirements.txt
-sed -i '1i#!/usr/bin/env python3' AnnoSINE_v2
+sed -i '1i#!/share/home/zhuqingshao/.local/bin/python3' AnnoSINE_v2
 chmod +x AnnoSINE_v2
+chmod +x *.py
+chmod +x irf308.linux.exe
+./irf308.linux.exe -h
+
+# the pipeline calls bin/*.py via the plain `python` command,
+# take over the unversioned `python` with our own python3
+ln -sf ${HOME}/.local/bin/python3 ${HOME}/.local/bin/python
+hash -r
+which python && python -V
+#~/.local/bin/python
+#Python 3.9.19
 
 echo "# AnnoSINE" >> ~/.bashrc
 echo 'export PATH="$PATH:/share/home/zhuqingshao/share/AnnoSINE_v2-2.0.9/bin"' >> ~/.bashrc
@@ -639,6 +654,8 @@ echo >> ~/.bashrc
 source ~/.bashrc
 AnnoSINE_v2 -h
 ```
+
+**Notice:** The Step3 error `SyntaxError: Non-ASCII character '\xe2' ... but no encoding declared` is a **Python 2 only** message. The helper scripts in `bin/` (e.g. `paf2blast6_chunking2_parallel3_ordered_parts.py`) are pure Python 3 code, but the pipeline invokes them via the plain `python` command. The self-built Python 3.9 (`make install`) only creates the `python3` name, so `python` resolved to `/usr/bin/python` (2.7.5). The `ln -sf` above is the user-level equivalent of Debian/Ubuntu's `python-is-python3` package (no root needed). For programs that really require Python 2, invoke them explicitly with `python2` or `/usr/bin/python` (or a `#!/usr/bin/env python2` shebang) -- the versioned names are untouched by the symlink.
 
 - Node.js (v16.20.2)
 
