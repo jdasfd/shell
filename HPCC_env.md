@@ -192,10 +192,14 @@ source ~/.bashrc
 cpanm JSON
 ```
 
-- RMblast/Blast+ (v2.17.1)
+- RMblast/Blast+ (v2.17.1+, updated from 2.17.0)
+
+**Note:** The RMblast/Blast+ v2.17.1+ is updated from the v2.17.0.
 
 ```bash
 cd ~/share
+wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.17.0/ncbi-blast-2.17.0+-src.tar.gz
+# rsync -avP ncbi-blast-2.17.0+-src.tar.gz zhuqingshao@xxx:share/
 module load gcc/gcc-11.5.0
 tar xzvf ncbi-blast-2.17.0+-src.tar.gz
 cd ncbi-blast-2.17.0+-src
@@ -382,7 +386,7 @@ source ~/.bashrc
 LTR_HARVEST_parallel -h
 ```
 
-- LTR Retriever (v3.0.5)
+- LTR Retriever (v2.9.0)
 
 ```bash
 cd ~/share
@@ -707,4 +711,66 @@ EDTA.pl -h
 bsub -q mpi -J edat -n 24 -o ./ -e ./ "EDTA.pl --genome HapB.reviewed.main20.fa --tirlearner /share/home/zhuqingshao/share/TIR‑Learner‑4.07/TIR‑Learner4 --species others --step all --sensitive 1 --anno 1 --evaluate 1 --threads 24"
 ```
 
+## EarlGrey (v7.3.1)
+
+The software of the two pipelines, EarlGrey and EDTA, largely overlaps. If there are some dependencies, please check the previous section.
+
+- EarlGrey pipeline (v7.3.1)
+
+We only use the earlGreyLibConstruct mode on the HPCC env.
+
+```bash
+cd ~/share
+git clone https://github.com/TobyBaril/EarlGrey.git
+# rsync -avP EarlGrey zhuqingshao@xxx:share/
+
+echo "# earlgrey pipeline" >> ~/.bashrc
+echo 'export PATH="$PATH:/share/home/zhuqingshao/share/EarlGrey"' >> ~/.bashrc
+echo >> ~/.bashrc
+source ~/.bashrc
+
+EG_DIR=/share/home/zhuqingshao/share/EarlGrey
+FAMDB_LIB=/share/home/zhuqingshao/share/FamDB-3.0.0/Libraries/famdb
+RM_SHARE=/share/home/zhuqingshao/share/RepeatMasker
+
+FAMDB_PARENT=$(dirname "$FAMDB_LIB")
+cd "$EG_DIR"
+
+# original (copy)
+mkdir -p .orig
+cp -n earlGrey earlGreyLibConstruct earlGreyAnnotationOnly \
+    scripts/headSwap.sh scripts/rcMergeRepeats scripts/rcMergeRepeatsLoose \
+    scripts/autoPie.sh scripts/TEstrainer/TEstrainer_for_earlGrey.sh .orig/
+
+# SCRIPT_DIR / STRAIN_SCRIPTS
+sed -i "s|^SCRIPT_DIR=.*|SCRIPT_DIR=${EG_DIR}/scripts|" \
+    earlGrey earlGreyLibConstruct earlGreyAnnotationOnly \
+    scripts/headSwap.sh scripts/rcMergeRepeats scripts/rcMergeRepeatsLoose scripts/autoPie.sh
+sed -i "s|^STRAIN_SCRIPTS=.*|STRAIN_SCRIPTS=${EG_DIR}/scripts/TEstrainer/scripts/|" \
+    scripts/TEstrainer/TEstrainer_for_earlGrey.sh
+
+# resolveFamdbPath (3 main scripts，conda -> real path)
+FAMDB_LIB="$FAMDB_LIB" FAMDB_PARENT="$FAMDB_PARENT" RM_SHARE="$RM_SHARE" \
+perl -0777 -pi -e '
+    s{resolveFamdbPath\(\)\s*\{.*?\n\}}{
+    "resolveFamdbPath()\n{\n\tlibpath=\"$ENV{FAMDB_LIB}/\"\n\tlibrary_path=\"$ENV{FAMDB_PARENT}/\"\n\trm_share=\"$ENV{RM_SHARE}/\"\n}\n"
+    }se
+' earlGrey earlGreyLibConstruct earlGreyAnnotationOnly
+
+ln -sf /share/home/zhuqingshao/share/FamDB-3.0.0/famdb.py ~/.local/bin/famdb.py
+
+# famdb (remove --curated)
+sed -i '/famdb.py/s/ --curated//' earlGrey earlGreyLibConstruct earlGreyAnnotationOnly
+
+# RepeatMasker primary mask add -uncurated（RepeatMasker default: curated-only）
+sed -i 's/RepeatMasker -species $RepSpec -no_is/RepeatMasker -species $RepSpec -uncurated -no_is/' \
+    earlGrey earlGreyLibConstruct earlGreyAnnotationOnly
+
+# test earlgrey pipeline
+cd ~/jyq/data
+
+earlGreyLibConstruct \
+    -g HapB.reviewed.main20.fa \
+    -s HapB -o e_HapB -t 1 \
+    -q yes -r Viridiplantae
 ```
