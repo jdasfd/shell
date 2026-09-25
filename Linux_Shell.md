@@ -470,3 +470,50 @@ tac a.txt
 time1=$(date "+%Y-%m-%d %H:%M:%S")
 echo $time1
 ```
+
+## Ubuntu fcitx
+
+环境：Ubuntu 24.04 (Noble) + GNOME (X11)。重装系统后从上到下按顺序执行即可完整复现。
+
+### Installation
+
+```bash
+sudo apt update
+sudo apt install fcitx5 fcitx5-chinese-addons fcitx5-rime fcitx5-frontend-all fcitx5-config-qt gnome-shell-extension-manager
+```
+
+### im-config
+
+```bash
+im-config -n fcitx5
+# 写入 ~/.xinputrc；此后变量设置和登录自启动都归 im-config 管
+```
+
+### 重启（必须重启，注销重登无效！）
+
+`GNOME`会话跑在`systemd`用户实例里，注销后`systemd --user`管理器并不退出，它携带的旧环境变量会被新会话原样继承，`im-config`的检测再次被短路。
+
+### 验证
+
+```bash
+echo $GTK_IM_MODULE $QT_IM_MODULE $XMODIFIERS
+#fcitx fcitx @im=fcitx
+
+pgrep -af fcitx5
+#2589 /usr/bin/fcitx5 -d
+
+# check status
+fcitx5-diagnose | less
+```
+
+### Kimpanel
+
+`fcitx5`会自动检测`kimpanel`，无需在`fcitx5`侧配置。
+
+```text
+Extension Manager ->
+Browse ->
+搜索Input Method Panel ->
+Install ->
+Installed页打开开关
+```
