@@ -759,18 +759,36 @@ perl -0777 -pi -e '
 
 ln -sf /share/home/zhuqingshao/share/FamDB-3.0.0/famdb.py ~/.local/bin/famdb.py
 
-# famdb (remove --curated)
-sed -i '/famdb.py/s/ --curated//' earlGrey earlGreyLibConstruct earlGreyAnnotationOnly
-
-# RepeatMasker primary mask add -uncurated（RepeatMasker default: curated-only）
-sed -i 's/RepeatMasker -species $RepSpec -no_is/RepeatMasker -species $RepSpec -uncurated -no_is/' \
-    earlGrey earlGreyLibConstruct earlGreyAnnotationOnly
-
 # test earlgrey pipeline
 cd ~/jyq/data
 
-earlGreyLibConstruct \
-    -g HapB.reviewed.main20.fa \
-    -s HapB -o e_HapB -t 1 \
-    -q yes -r Viridiplantae
+earlGreyLibConstruct -g HapB.reviewed.main20.fa -s HapB -o e_HapB -t 1 -q yes -r Viridiplantae
+```
+
+## Bowtie2 softwares
+
+### Bowtie2 used for RNA-seq mapping
+
+- bowtie2 (v2.5.5)
+
+```bash
+cd ~/share
+tar xzvf v2.5.4.tar.gz
+cd bowtie2-2.5.4
+make PREFIX=${HOME}/.local
+make install PREFIX=${HOME}/.local
+bowtie2 -h
+```
+
+### pigz (v2.8)
+
+```bash
+cd ~/share
+wget https://zlib.net/pigz/pigz-2.8.tar.gz
+tar xzvf pigz-2.8.tar.gz
+cd pigz-2.8
+make
+cp pigz unpigz ~/.local/bin/
+pigz -V
+#pigz 2.8
 ```
